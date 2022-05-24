@@ -4,12 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:place_event/functions/global_variable.dart';
 
-Widget categorieItem(context, title){
+import '../models/Categorie.dart';
+
+Widget categorieItem(context, Categorie categorie){
   return Container(
     decoration: BoxDecoration(
       image: DecorationImage(
         colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.luminosity),
-        image: AssetImage("assets/images/bg.jpg"),
+        image: NetworkImage(categorie.images),
         fit: BoxFit.cover,
       ),
       borderRadius: BorderRadius.circular(5.0),
@@ -33,7 +35,7 @@ Widget categorieItem(context, title){
           //
           // SizedBox(width: 16.0,),
           Text(
-              title,
+              categorie.name,
             style: TextStyle(
               fontSize: width(context) / 20,
               fontWeight: FontWeight.w300,

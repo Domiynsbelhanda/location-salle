@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^2.3.2
   font_awesome_flutter: ^10.1.0
   custom_navigation_bar: ^0.8.2
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

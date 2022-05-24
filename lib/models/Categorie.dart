@@ -3,9 +3,9 @@ class Categorie {
   final String key;
   final String name;
   final String slug;
-  final String? images;
+  final String images;
 
-  Categorie({required this.id, required this.key, required this.name, required this.slug, this.images});
+  Categorie({required this.id, required this.key, required this.name, required this.slug, required this.images});
 
   Categorie.fromJson(Map<String, dynamic> json) :
       id = json['id'],

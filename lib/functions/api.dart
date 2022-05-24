@@ -1,4 +1,5 @@
 import 'package:place_event/models/Categorie.dart';
+import 'package:place_event/models/Rooms.dart';
 
 import '../models/User.dart';
 
@@ -66,7 +67,7 @@ List jsonRooms = [
     'address' : '8, Gombé, Limeté',
     'phones' : '+243818045132',
     'email' : 'pacifique@gmail.com',
-    'note' : 4,
+    'note' : 4.0,
     'latitude' : 127.0,
     'longitude' : 100.45,
     'confirmed' : false,
@@ -87,7 +88,7 @@ List jsonRooms = [
     'address' : '8, Gombé, Limeté',
     'phones' : '+243818045132',
     'email' : 'pacifique@gmail.com',
-    'note' : 3,
+    'note' : 3.5,
     'latitude' : 127.0,
     'longitude' : 100.45,
     'confirmed' : false,
@@ -129,10 +130,12 @@ List jsonRooms = [
     'address' : '8, Gombé, Limeté',
     'phones' : '+243818045132',
     'email' : 'pacifique@gmail.com',
-    'note' : 4,
+    'note' : 4.0,
     'latitude' : 127.0,
     'longitude' : 100.45,
     'confirmed' : false,
     'booster' : true
   }
 ];
+
+List<Rooms> rooms = jsonRooms.map((roomJson)=> Rooms.fromJson(roomJson)).toList();

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:place_event/functions/api.dart';
 import 'package:place_event/functions/global_variable.dart';
 import 'package:place_event/widgets/categorie.dart';
+import 'package:place_event/widgets/rooms.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -115,9 +116,9 @@ class _HomePage extends State<HomePage>{
                   ),
                 ),
 
-                SizedBox(height: width(context) / 20),
+                SizedBox(height: width(context) / 25),
 
-                SizedBox( // Horizontal ListView
+                SizedBox(
                   height: width(context) / 9,
                   child: ListView.builder(
                     itemCount: categories.length,
@@ -129,13 +130,40 @@ class _HomePage extends State<HomePage>{
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: categorieItem(context, '${categories[index].name}'),
+                          child: categorieItem(context, categories[index]),
                         ),
                       );
                     },
                   ),
                 ),
 
+                SizedBox(height: width(context) / 15),
+
+                Text(
+                  'Plus des salles',
+                  style: TextStyle(
+                      fontSize: width(context) / 15,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff142919)
+                  ),
+                ),
+
+                SizedBox(height: width(context) / 25),
+
+                SizedBox(
+                    height: height(context) / 4,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: rooms.length,
+                    itemBuilder: (item, index){
+                      return GestureDetector(
+                        onTap: (){
+                        },
+                        child: widgetRooms(context, rooms[index])
+                      );
+                    },
+                  ),
+                )
               ],
             ),
           ),

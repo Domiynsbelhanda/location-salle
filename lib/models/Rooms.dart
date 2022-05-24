@@ -14,7 +14,7 @@ class Rooms {
   final String address;
   final String phones;
   final String email;
-  final int note;
+  final double note;
   final double? latitude;
   final double? longitude;
   final bool confirmed;
