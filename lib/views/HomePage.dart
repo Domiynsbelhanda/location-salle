@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:place_event/functions/api.dart';
 import 'package:place_event/functions/global_variable.dart';
 import 'package:place_event/widgets/categorie.dart';
 
@@ -119,12 +120,17 @@ class _HomePage extends State<HomePage>{
                 SizedBox( // Horizontal ListView
                   height: width(context) / 9,
                   child: ListView.builder(
-                    itemCount: 20,
+                    itemCount: categories.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 4.0),
-                        child: categorieItem(context, '${index}'),
+                      return GestureDetector(
+                        onTap: (){
+                          print('Belhanda');
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: categorieItem(context, '${categories[index].name}'),
+                        ),
                       );
                     },
                   ),

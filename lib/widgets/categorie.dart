@@ -26,12 +26,12 @@ Widget categorieItem(context, title){
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(
-            FontAwesomeIcons.city,
-            color: tertColor,
-          ),
-
-          SizedBox(width: 16.0,),
+          // Icon(
+          //   FontAwesomeIcons.city,
+          //   color: tertColor,
+          // ),
+          //
+          // SizedBox(width: 16.0,),
           Text(
               title,
             style: TextStyle(
