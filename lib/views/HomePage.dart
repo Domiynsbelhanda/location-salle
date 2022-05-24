@@ -137,7 +137,7 @@ class _HomePage extends State<HomePage>{
                   ),
                 ),
 
-                SizedBox(height: width(context) / 15),
+                SizedBox(height: width(context) / 25),
 
                 Text(
                   'Plus des salles',

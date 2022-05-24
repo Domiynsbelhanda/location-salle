@@ -77,7 +77,7 @@ class _Mapping extends State<Mapping>{
     return CustomNavigationBar(
       elevation: 0.0,
       iconSize: width(context) / 18,
-      selectedColor: Colors.black,
+      selectedColor: primaryColor,
       strokeColor: primaryColor,
       unSelectedColor: Colors.grey[600],
       backgroundColor: tertColor,
