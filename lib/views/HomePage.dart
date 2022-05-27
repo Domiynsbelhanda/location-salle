@@ -7,6 +7,8 @@ import 'package:place_event/views/ListHotels.dart';
 import 'package:place_event/widgets/categorie.dart';
 import 'package:place_event/widgets/rooms.dart';
 
+import '../main.dart';
+
 class HomePage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -93,11 +95,6 @@ class _HomePage extends State<HomePage>{
                                 suffixIcon: IconButton(
                                   onPressed: (){
                                     if(search.text.trim().isNotEmpty){
-                                      Navigator.of(context)
-                                          .push(
-                                          createRoute(context, ListItem(query : search.text.trim())
-                                          )
-                                      );
                                     }
                                   },
                                   icon: Icon(
@@ -135,11 +132,7 @@ class _HomePage extends State<HomePage>{
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
-                          Navigator.of(context)
-                              .push(
-                              createRoute(context, ListItem(categorie : categories[index].name,)
-                              )
-                          );
+
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
@@ -166,11 +159,7 @@ class _HomePage extends State<HomePage>{
 
                     GestureDetector(
                       onTap: (){
-                        Navigator.of(context)
-                            .push(
-                            createRoute(context, ListItem(rooms: rooms,)
-                            )
-                        );
+
                       },
                       child: Text(
                         'Voir Plus',

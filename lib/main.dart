@@ -2,6 +2,7 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:place_event/views/ListHotels.dart';
 import 'functions/global_variable.dart';
 import 'views/HomePage.dart';
 
@@ -68,7 +69,7 @@ class _Mapping extends State<Mapping>{
 
   List body = [
     HomePage(),
-    HomePage(),
+    ListItem(),
     HomePage(),
     HomePage()
   ];

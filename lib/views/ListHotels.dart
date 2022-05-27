@@ -10,11 +10,9 @@ import '../functions/global_variable.dart';
 
 class ListItem extends StatefulWidget{
 
-  final String? categorie;
-  final String? query;
   final List<Rooms>? rooms;
 
-  ListItem({this.categorie, this.query, this.rooms});
+  ListItem({this.rooms});
 
   @override
   State<StatefulWidget> createState() {
@@ -25,48 +23,37 @@ class ListItem extends StatefulWidget{
 
 class _ListItem extends State<ListItem>{
 
-  String navText = "Salles et Hotels";
-
-
   @override
   void initState() {
-    if(widget.categorie != null){
-      navText = 'Categorie : ${widget.categorie!}';
-    }
-
-    if(widget.query != null){
-      navText = 'Recherche : ${widget.query!}';
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            NavBar(context, navText),
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          //NavBar(context, navText),
+          SizedBox(height: 8.0,),
+          Expanded(
+            child: ListView.builder(
+              itemCount: rooms.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: (){
 
-            Expanded(
-              child: ListView.builder(
-                itemCount: rooms.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: (){
-
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: horiRooms(context, rooms[index]),
-                    ),
-                  );
-                },
-              ),
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: horiRooms(context, rooms[index]),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
