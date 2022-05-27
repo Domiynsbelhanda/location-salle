@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:place_event/functions/api.dart';
 import 'package:place_event/functions/global_variable.dart';
+import 'package:place_event/views/ListHotels.dart';
 import 'package:place_event/widgets/categorie.dart';
 import 'package:place_event/widgets/rooms.dart';
 
@@ -90,7 +91,15 @@ class _HomePage extends State<HomePage>{
                                   fontSize: width(context) / 23
                                 ),
                                 suffixIcon: IconButton(
-                                  onPressed: (){},
+                                  onPressed: (){
+                                    if(search.text.trim().isNotEmpty){
+                                      Navigator.of(context)
+                                          .push(
+                                          createRoute(context, ListItem(query : search.text.trim())
+                                          )
+                                      );
+                                    }
+                                  },
                                   icon: Icon(
                                       FontAwesomeIcons.magnifyingGlass,
                                     color: tertColor,
@@ -126,7 +135,11 @@ class _HomePage extends State<HomePage>{
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
-                          print('Belhanda');
+                          Navigator.of(context)
+                              .push(
+                              createRoute(context, ListItem(categorie : categories[index].name,)
+                              )
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
@@ -139,13 +152,32 @@ class _HomePage extends State<HomePage>{
 
                 SizedBox(height: width(context) / 25),
 
-                Text(
-                  'Plus des salles',
-                  style: TextStyle(
-                      fontSize: width(context) / 15,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff142919)
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Plus des salles',
+                      style: TextStyle(
+                          fontSize: width(context) / 15,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff142919)
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.of(context)
+                            .push(
+                            createRoute(context, ListItem(rooms: rooms,)
+                            )
+                        );
+                      },
+                      child: Text(
+                        'Voir Plus',
+
+                      ),
+                    )
+                  ],
                 ),
 
                 SizedBox(height: width(context) / 25),
