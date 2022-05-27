@@ -78,7 +78,7 @@ List jsonRooms = [
     'id' : 2,
     'key' : 'palace',
     'user' : 1,
-    'title' : 'Pullman Lubumbashi',
+    'title' : 'Pullman Lushi',
     'description' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     'images' : 'https://media-cdn.tripadvisor.com/media/photo-m/1280/1c/b5/84/bf/hotel-lubumbashi.jpg',
     'prices' : 250.0,

@@ -40,7 +40,8 @@ Widget widgetRooms(context, Rooms rooms){
                         style: TextStyle(
                             fontSize: width(context) / 25,
                             fontWeight: FontWeight.normal,
-                            color: Colors.white)
+                            color: Colors.white
+                        )
                     ),
                   ],
                 ),
