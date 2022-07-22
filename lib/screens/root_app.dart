@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:place_event/screens/ListHotels.dart';
 import '../screens/setting.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
+import '../utils/data.dart';
 import '../widgets/bottombar_item.dart';
 
 import 'home.dart';
@@ -21,11 +23,8 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
       "page": HomePage(),
     },
     {
-      "icon": "assets/icons/search.svg",
-      "page": Container(
-        alignment: Alignment.center,
-        child: Text("Explore"),
-      ),
+      "icon": "assets/icons/explore.svg",
+      "page": ListItem(rooms: features)
     },
     {
       "icon": "assets/icons/pin-area.svg",

@@ -8,6 +8,7 @@ import '../widgets/city_item.dart';
 import '../widgets/feature_item.dart';
 import '../widgets/notification_box.dart';
 import '../widgets/recommend_item.dart';
+import 'details.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -215,7 +216,14 @@ class _HomePageState extends State<HomePage> {
                   !features[index]["is_favorited"];
             });
           },
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Details(
+                data: features[index],
+              )),
+            );
+          },
         ),
       ),
     );
@@ -232,7 +240,14 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(right: 10),
             child: RecommendItem(
               data: recommends[index],
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Details(
+                    data: recommends[index],
+                  )),
+                );
+              },
             ),
           ),
         ),
