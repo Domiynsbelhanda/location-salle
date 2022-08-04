@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Spacer(),
           UserBox(
-            notifiedNumber: 1,
+            notifiedNumber: 0,
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => LoginScreen())

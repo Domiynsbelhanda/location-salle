@@ -39,7 +39,9 @@ class UserBox extends StatelessWidget {
                   ),
           )
               : Icon(
-                  FontAwesomeIcons.user
+                  FontAwesomeIcons.user,
+                  color: Colors.grey.withOpacity(.9),
+                  size: 20.0,
                 ),
       )
     );
