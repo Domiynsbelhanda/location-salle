@@ -8,6 +8,8 @@ import '../widgets/city_item.dart';
 import '../widgets/feature_item.dart';
 import '../widgets/notification_box.dart';
 import '../widgets/recommend_item.dart';
+import '../widgets/user_box.dart';
+import 'authentification/login_screen.dart';
 import 'details.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,9 +58,13 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           Spacer(),
-          NotificationBox(
+          UserBox(
             notifiedNumber: 1,
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => LoginScreen())
+              );
+            },
           )
         ],
       ),
