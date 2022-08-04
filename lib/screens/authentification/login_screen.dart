@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../services/auth.dart';
 
 class LoginScreen extends StatefulWidget{
   @override
@@ -59,7 +62,8 @@ class _LoginScreen extends State<LoginScreen>{
                         'device_name' : 'mobile'
                       };
                       if(_formKey.currentState!.validate()){
-                        print(data);
+                        Provider.of<Auth>(context, listen: false).login(creds: data);
+                        Navigator.pop(context);
                       }
                     },
                     child: Text(

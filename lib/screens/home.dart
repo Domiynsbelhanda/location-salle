@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import '../services/auth.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
 import '../utils/data.dart';
@@ -58,11 +60,15 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           Spacer(),
-          UserBox(
-            notifiedNumber: 0,
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => LoginScreen())
+          Consumer<Auth>(
+            builder: (context, auth, child){
+              return UserBox(
+                notifiedNumber: auth.authenticated ? 1 : 0,
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LoginScreen())
+                  );
+                },
               );
             },
           )

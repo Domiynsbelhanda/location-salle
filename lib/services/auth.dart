@@ -5,7 +5,7 @@ class Auth extends ChangeNotifier{
 
   bool get authenticated => _isLoggedIn;
 
-  void login (Map creds){
+  void login ({required Map creds}){
     _isLoggedIn = true;
 
     notifyListeners();
