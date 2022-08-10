@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as Dio;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/user.dart';
 import 'dio.dart';
 
@@ -10,6 +11,8 @@ class Auth extends ChangeNotifier{
 
   bool get authenticated => _isLoggedIn;
   User get user => _user!;
+
+  final storage = new FlutterSecureStorage();
 
   void login ({required Map creds}) async {
 
@@ -35,11 +38,16 @@ class Auth extends ChangeNotifier{
         );
         this._isLoggedIn = true;
         this._user = User.fromJson(response.data);
+        this.storeToken(token: token);
         notifyListeners();
       } catch (e){
 
       }
     }
+  }
+
+  void storeToken({required String token}) async{
+    this.storage.write(key: 'token', value: token);
   }
 
   void logout(){

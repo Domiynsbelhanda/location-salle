@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../services/auth.dart';
@@ -8,7 +9,6 @@ import '../utils/constant.dart';
 import '../utils/data.dart';
 import '../widgets/city_item.dart';
 import '../widgets/feature_item.dart';
-import '../widgets/notification_box.dart';
 import '../widgets/recommend_item.dart';
 import '../widgets/user_box.dart';
 import 'authentification/login_screen.dart';
@@ -23,7 +23,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  final storage = new FlutterSecureStorage();
+
   TextEditingController search = new TextEditingController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    readToken();
+  }
+
+  void readToken() async {
+    String? token = await storage.read(key: 'token');
+    Provider.of<Auth>(context, listen: false).tryToken(token: token!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +77,7 @@ class _HomePageState extends State<HomePage> {
           Consumer<Auth>(
             builder: (context, auth, child){
               return UserBox(
+                //auth.user.email
                 notifiedNumber: auth.authenticated ? 1 : 0,
                 onTap: () {
                   Navigator.of(context).push(
