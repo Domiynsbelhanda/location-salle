@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,11 +19,27 @@ class _LoginScreen extends State<LoginScreen>{
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  String? _deviceName;
 
 
   @override
   void initState() {
+    getDeviceName();
+  }
 
+  void getDeviceName() async {
+    try {
+      if(Platform.isAndroid){
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        _deviceName = androidInfo.model;
+      } else if (Platform.isIOS){
+        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        _deviceName = iosInfo.model;
+      }
+    } catch (e){
+
+    }
   }
 
 
@@ -59,7 +78,7 @@ class _LoginScreen extends State<LoginScreen>{
                       Map data = {
                         'email': _emailController.text,
                         'password' : _passwordController.text,
-                        'device_name' : 'mobile'
+                        'device_name' : _deviceName ?? 'unknown',
                       };
                       if(_formKey.currentState!.validate()){
                         Provider.of<Auth>(context, listen: false).login(creds: data);
