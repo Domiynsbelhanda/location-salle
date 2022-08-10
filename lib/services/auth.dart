@@ -50,9 +50,16 @@ class Auth extends ChangeNotifier{
     this.storage.write(key: 'token', value: token);
   }
 
-  void logout(){
-    _isLoggedIn = false;
-    notifyListeners();
+  void logout() async{
+    try {
+      Dio.Response response = await dio()!.get('/user/revoke',
+        options: Dio.Options(headers: {'Authorization': 'Bearer $_token'})
+      );
+      cleanUp();
+      notifyListeners();
+    } catch (e){
+
+    }
   }
 
   void cleanUp() async {
