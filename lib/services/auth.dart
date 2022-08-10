@@ -38,6 +38,7 @@ class Auth extends ChangeNotifier{
         );
         this._isLoggedIn = true;
         this._user = User.fromJson(response.data);
+        this._token = token;
         this.storeToken(token: token);
         notifyListeners();
       } catch (e){
