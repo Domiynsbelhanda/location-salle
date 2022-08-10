@@ -54,4 +54,11 @@ class Auth extends ChangeNotifier{
     _isLoggedIn = false;
     notifyListeners();
   }
+
+  void cleanUp() async {
+    this._user = null;
+    this._isLoggedIn = false;
+    this._token = null;
+    await storage.delete(key: 'token');
+  }
 }
