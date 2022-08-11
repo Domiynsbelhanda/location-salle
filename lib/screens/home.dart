@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../services/auth.dart';
+import '../services/datas.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
 import '../utils/data.dart';
@@ -31,7 +32,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    readToken();
+    //readToken();
+
+    Provider.of<Datas>(context, listen: false).categorie();
   }
 
   void readToken() async {
@@ -61,34 +64,32 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getAppBar() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              Image.asset(
-                'assets/images/logo1.png',
-                scale: 1.5,
-              )
-            ],
-          ),
-          Spacer(),
-          Consumer<Auth>(
-            builder: (context, auth, child){
-              return UserBox(
-                //auth.user.email
-                notifiedNumber: auth.authenticated ? 1 : 0,
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LoginScreen())
-                  );
-                },
-              );
-            },
-          )
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          children: [
+            Image.asset(
+              'assets/images/logo1.png',
+              scale: 1.5,
+            )
+          ],
+        ),
+        Spacer(),
+        Consumer<Auth>(
+          builder: (context, auth, child){
+            return UserBox(
+              //auth.user.email
+              notifiedNumber: auth.authenticated ? 1 : 0,
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => LoginScreen())
+                );
+              },
+            );
+          },
+        )
+      ],
     );
   }
 
@@ -148,30 +149,28 @@ class _HomePageState extends State<HomePage> {
                               width: 1.5,
                             ),
                           ),
-                          child: Expanded(
-                            child: TextField(
-                              controller: search,
-                              style: TextStyle(
-                                  color: tertColor,
-                                  fontSize: width(context) / 23
-                              ),
-                              decoration: InputDecoration(
-                                  hintText: '  Rechercher',
-                                  hintStyle: TextStyle(
+                          child: TextField(
+                            controller: search,
+                            style: TextStyle(
+                                color: tertColor,
+                                fontSize: width(context) / 23
+                            ),
+                            decoration: InputDecoration(
+                                hintText: '  Rechercher',
+                                hintStyle: TextStyle(
+                                    color: tertColor,
+                                    fontSize: width(context) / 23
+                                ),
+                                suffixIcon: IconButton(
+                                    onPressed: (){
+                                      if(search.text.trim().isNotEmpty){
+                                      }
+                                    },
+                                    icon: Icon(
+                                      FontAwesomeIcons.magnifyingGlass,
                                       color: tertColor,
-                                      fontSize: width(context) / 23
-                                  ),
-                                  suffixIcon: IconButton(
-                                      onPressed: (){
-                                        if(search.text.trim().isNotEmpty){
-                                        }
-                                      },
-                                      icon: Icon(
-                                        FontAwesomeIcons.magnifyingGlass,
-                                        color: tertColor,
-                                      )
-                                  )
-                              ),
+                                    )
+                                )
                             ),
                           ),
                         )
