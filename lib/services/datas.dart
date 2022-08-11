@@ -23,4 +23,17 @@ class Datas extends ChangeNotifier{
         print(e);
     }
   }
+
+  void rooms() async {
+    try {
+      Dio.Response response = await dio()!.get('/rooms/all');
+      Iterable datas = jsonDecode(response.data);
+      print('belhanda $datas');
+      // List<Categorie>? cat = List<Categorie>.from(datas.map((model)=> Categorie.fromJson(model)));
+      // _categories = cat;
+      notifyListeners();
+    } catch (e){
+      print(e);
+    }
+  }
 }

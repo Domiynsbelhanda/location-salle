@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     //readToken();
     Provider.of<Datas>(context, listen: false).categorie();
+    Provider.of<Datas>(context, listen: false).rooms();
   }
 
   void readToken() async {
