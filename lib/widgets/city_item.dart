@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import '../models/categories.dart';
 import '../theme/color.dart';
 
 class CityItem extends StatelessWidget {
   CityItem({Key? key, required this.data, this.isSelected = false, this.onTap})
       : super(key: key);
-  final data;
+  final Categorie data;
   final bool isSelected;
   final GestureTapCallback? onTap;
 
@@ -32,7 +33,7 @@ class CityItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              data["name"],
+              data.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

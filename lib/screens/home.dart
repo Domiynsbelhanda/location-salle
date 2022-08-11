@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     //readToken();
-
     Provider.of<Datas>(context, listen: false).categorie();
   }
 
@@ -282,21 +281,25 @@ class _HomePageState extends State<HomePage> {
   }
 
   getCities() {
-    return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(15, 5, 0, 10),
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-          cities.length,
-          (index) => Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: CityItem(
-              data: cities[index],
-              onTap: () {},
+    return Consumer<Datas>(
+      builder: (context, datas, child){
+        return SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(15, 5, 0, 10),
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(
+              datas.categories.length,
+                  (index) => Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: CityItem(
+                  data: datas.categories[index],
+                  onTap: () {},
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -10,14 +10,14 @@ import 'dio.dart';
 class Datas extends ChangeNotifier{
   List<Categorie>? _categories;
 
+  List<Categorie> get categories => _categories!;
+
   void categorie() async {
     try {
       Dio.Response response = await dio()!.get('/categorie/all');
-
-      var datas = jsonDecode(response.data);
-      List<Categorie> cat = List<Categorie>.from(datas.map((model)=> Categorie.fromJson(model)));
-
-      print('belhanda $datas');
+      Iterable datas = jsonDecode(response.data);
+      List<Categorie>? cat = List<Categorie>.from(datas.map((model)=> Categorie.fromJson(model)));
+      _categories = cat;
       notifyListeners();
     } catch (e){
         print(e);
