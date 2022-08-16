@@ -73,7 +73,7 @@ class RecommendItem extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            '${data.note}',
+                            '${data.note} - ${data.places} place(s)',
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           ),
                         ),

@@ -95,14 +95,17 @@ class _DetailsPageState extends State<Details> {
             SizedBox(
               height: 15,
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
-              child: Text(
-                '${widget.data.title}',
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500,
-                    color: textColor),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              child: Container(
+                child: Text(
+                  '${widget.data.title}',
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: textColor),
+                ),
               ),
             ),
 
@@ -110,42 +113,54 @@ class _DetailsPageState extends State<Details> {
               height: 5,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-              child: Text(
-                widget.data.town,
-                style: TextStyle(fontSize: 12, color: labelColor),
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.star,
-                    size: 14,
-                    color: yellow,
-                  ),
-                  SizedBox(
-                    width: 3,
-                  ),
-                  Text(
-                    '${widget.data.note}',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  Column(
+                    children: [
+                      Text(
+                        widget.data.town,
+                        style: TextStyle(fontSize: 12, color: labelColor),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            size: 14,
+                            color: yellow,
+                          ),
+                          SizedBox(
+                            width: 3,
+                          ),
+                          Text(
+                            '${widget.data.note}',
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+
+                          SizedBox(width: 8.0,),
+                          Text(
+                            '${widget.data.prices} \$',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: primary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
 
-                  SizedBox(width: 8.0,),
-                  Text(
-                    '${widget.data.prices}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: primary,
-                    ),
-                  ),
+                  Column(
+                    children: [
+
+                    ],
+                  )
                 ],
               ),
             ),
