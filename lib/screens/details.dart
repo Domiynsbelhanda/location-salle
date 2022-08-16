@@ -113,9 +113,9 @@ class _DetailsPageState extends State<Details> {
               height: 5,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
@@ -158,7 +158,22 @@ class _DetailsPageState extends State<Details> {
 
                   Column(
                     children: [
-
+                      Text(
+                        '${widget.data.places} place(s)',
+                        style: TextStyle(fontSize: 12, color: labelColor),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${widget.data.address}',
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                        ],
+                      ),
                     ],
                   )
                 ],
