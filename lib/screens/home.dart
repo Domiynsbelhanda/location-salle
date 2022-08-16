@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:place_event/screens/root_app.dart';
 import 'package:provider/provider.dart';
 import '../services/auth.dart';
 import '../services/datas.dart';
@@ -161,6 +162,12 @@ class _HomePageState extends State<HomePage> {
                                 suffixIcon: IconButton(
                                     onPressed: (){
                                       if(search.text.trim().isNotEmpty){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => RootApp(
+                                            tab: 1,
+                                          )),
+                                        );
                                       }
                                     },
                                     icon: Icon(

@@ -10,18 +10,17 @@ import '../widgets/bottombar_item.dart';
 import 'home.dart';
 
 class RootApp extends StatefulWidget {
-  const RootApp({Key? key, this.rooms}) : super(key: key);
+  const RootApp({Key? key, this.rooms, this.tab}) : super(key: key);
   final List<Rooms>? rooms;
+  final int? tab;
 
   @override
-  _RootAppState createState() => _RootAppState(roomss: rooms);
+  _RootAppState createState() => _RootAppState();
 }
 
 class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
-  _RootAppState({this.roomss});
-  final List<Rooms>? roomss;
-  int activeTabIndex = 0;
 
+  int activeTabIndex = 0;
   List barItems = [];
 
 //====== set animation=====
@@ -38,6 +37,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller.forward();
+    activeTabIndex = widget.tab!;
     barItems = [
       {
         "icon": "assets/icons/home.svg",
@@ -45,7 +45,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
       },
       {
         "icon": "assets/icons/explore.svg",
-        "page": ListItem(rooms: roomss!)
+        "page": ListItem(rooms: widget.rooms)
       },
       {
         "icon": "assets/icons/pin-area.svg",
