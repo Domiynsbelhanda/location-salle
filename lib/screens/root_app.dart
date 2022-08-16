@@ -38,7 +38,6 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller.forward();
-    print('belhanda ${roomss!}');
     barItems = [
       {
         "icon": "assets/icons/home.svg",

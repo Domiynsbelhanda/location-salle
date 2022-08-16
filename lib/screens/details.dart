@@ -192,7 +192,7 @@ class _DetailsPageState extends State<Details> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomImage(
-              '${widget.data.images}',
+              'https://place-event.com/public/storage/${widget.data.images}',
               width: double.infinity,
               height: 190,
               radius: 15,
