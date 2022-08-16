@@ -1,3 +1,5 @@
+import 'categories.dart';
+
 class Rooms {
   int id;
   String key;
@@ -17,12 +19,13 @@ class Rooms {
   String? longitude;
   bool confirmed;
   bool booster;
+  List<dynamic>? categories;
 
   Rooms({
     required this.id, required this.key, required this.user_id, required this.title, required this.description,
     required this.images, required this.prices, required this.places, required this.town, required this.commune,
     required this.address, required this.phones, required this.email, required this.confirmed, required this.booster,
-    required this.note, this.latitude, this.longitude
+    required this.note, this.latitude, this.longitude, this.categories
   });
 
   Rooms.fromJson(Map<String, dynamic> json)
@@ -43,5 +46,6 @@ class Rooms {
         booster = json['booster'],
         note = json['note'],
         latitude = json['latitude'],
-        longitude = json['longitude'];
+        longitude = json['longitude'],
+        categories = json['categories']  ;
 }

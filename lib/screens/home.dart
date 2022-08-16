@@ -168,6 +168,7 @@ class _HomePageState extends State<HomePage> {
                                             List<Rooms>? contain = datas.rooms
                                                 .where((element) => element.title.toLowerCase()
                                                 .contains(search.text.trim().toLowerCase())).toList();
+
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(builder: (context) => RootApp(
@@ -315,7 +316,25 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(right: 8),
                 child: CityItem(
                   data: datas.categories[index],
-                  onTap: () {},
+                  onTap: () {
+                    List<Rooms>? allRooms = datas.rooms;
+                    List<Rooms>? contains = [];
+                    allRooms.forEach((room) {
+                      room.categories?.forEach((categorie) {
+                        if(categorie['slug'] == datas.categories[index].slug){
+                          contains.add(room);
+                        }
+                      });
+                    });
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RootApp(
+                        tab: 1,
+                        rooms: contains,
+                      )),
+                    );
+                  },
                 ),
               ),
             ),
