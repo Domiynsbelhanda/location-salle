@@ -7,7 +7,6 @@ import '../services/auth.dart';
 import '../services/datas.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
-import '../utils/data.dart';
 import '../widgets/city_item.dart';
 import '../widgets/feature_item.dart';
 import '../widgets/recommend_item.dart';
@@ -33,9 +32,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     //readToken();
-    Provider.of<Datas>(context, listen: false).categorie();
-    Provider.of<Datas>(context, listen: false).room();
-    Provider.of<Datas>(context, listen: false).roomNoted();
   }
 
   void readToken() async {
