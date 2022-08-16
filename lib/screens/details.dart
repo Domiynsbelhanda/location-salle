@@ -93,6 +93,7 @@ class _DetailsPageState extends State<Details> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         widget.data.town,
@@ -128,10 +129,18 @@ class _DetailsPageState extends State<Details> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        'Phone : (+243) ${widget.data.phones}',
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
                     ],
                   ),
 
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
                         '${widget.data.places} place(s)',
@@ -140,14 +149,13 @@ class _DetailsPageState extends State<Details> {
                       SizedBox(
                         height: 8,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${widget.data.address}',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
+                      Text(
+                        '${widget.data.address}',
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                      Text(
+                        '${widget.data.commune}',
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],
                   )
@@ -165,22 +173,6 @@ class _DetailsPageState extends State<Details> {
                       fontSize: 14, color: Colors.black,
 
                   ),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 16.0),
-
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-              child: Container(
-                child: Text(
-                  'Informations sur la salle',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                      color: textColor),
                 ),
               ),
             ),
