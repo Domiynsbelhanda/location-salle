@@ -30,38 +30,28 @@ class _DetailsPageState extends State<Details> {
       body: Stack(
         children: [
           Positioned(
-            left: 0.0,
-            right: 0.0,
-            bottom: 16.0,
-            child: Center(
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Theme.of(context).colorScheme.primary.withOpacity(0.5);
-                      return primaryColor;
-                    },
-                  )
-                ),
-                onPressed: () {  },
-                child: Text(
-                    "RESERVER",
-                  style: TextStyle(
-                    fontSize: 20.0
-                  ),
-
-                ),
-              ),
+            top: 16.0,
+            left: 15.0,
+            child: IconButton(
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  FontAwesomeIcons.arrowLeftLong,
+                  color: Colors.black,
+                )
             ),
           ),
-          CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: buildBody()
+          Padding(
+            padding: const EdgeInsets.only(top: 60.0),
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: buildBody()
 
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -75,21 +65,6 @@ class _DetailsPageState extends State<Details> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 10,
-            ),
-            IconButton(
-                onPressed: (){
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  FontAwesomeIcons.arrowLeftLong,
-                  color: Colors.black,
-                )
-            ),
-            SizedBox(
-              height: 10,
-            ),
 
             getFeature(),
             SizedBox(
@@ -190,6 +165,46 @@ class _DetailsPageState extends State<Details> {
                       fontSize: 14, color: Colors.black,
 
                   ),
+                ),
+              ),
+            ),
+
+            SizedBox(height: 16.0),
+
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              child: Container(
+                child: Text(
+                  'Informations sur la salle',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      color: textColor),
+                ),
+              ),
+            ),
+
+            SizedBox(height: 16.0,),
+
+            Center(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                          (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed))
+                          return Theme.of(context).colorScheme.primary.withOpacity(0.5);
+                        return primaryColor;
+                      },
+                    )
+                ),
+                onPressed: () {  },
+                child: Text(
+                  "RESERVER",
+                  style: TextStyle(
+                      fontSize: 20.0
+                  ),
+
                 ),
               ),
             ),
