@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:place_event/screens/root_app.dart';
 import 'package:provider/provider.dart';
+import '../models/rooms.dart';
 import '../services/auth.dart';
 import '../services/datas.dart';
 import '../theme/color.dart';
@@ -147,36 +148,44 @@ class _HomePageState extends State<HomePage> {
                               width: 1.5,
                             ),
                           ),
-                          child: TextField(
-                            controller: search,
-                            style: TextStyle(
-                                color: tertColor,
-                                fontSize: width(context) / 23
-                            ),
-                            decoration: InputDecoration(
-                                hintText: '  Rechercher',
-                                hintStyle: TextStyle(
+                          child: Consumer<Datas>(
+                            builder: (context, datas, child){
+                              return TextField(
+                                controller: search,
+                                style: TextStyle(
                                     color: tertColor,
                                     fontSize: width(context) / 23
                                 ),
-                                suffixIcon: IconButton(
-                                    onPressed: (){
-                                      if(search.text.trim().isNotEmpty){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => RootApp(
-                                            tab: 1,
-                                          )),
-                                        );
-                                      }
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.magnifyingGlass,
-                                      color: tertColor,
+                                decoration: InputDecoration(
+                                    hintText: '  Rechercher',
+                                    hintStyle: TextStyle(
+                                        color: tertColor,
+                                        fontSize: width(context) / 23
+                                    ),
+                                    suffixIcon: IconButton(
+                                        onPressed: (){
+                                          if(search.text.trim().isNotEmpty){
+                                            List<Rooms>? contain = datas.rooms
+                                                .where((element) => element.title.toLowerCase()
+                                                .contains(search.text.trim().toLowerCase())).toList();
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => RootApp(
+                                                tab: 1,
+                                                rooms: contain,
+                                              )),
+                                            );
+                                          }
+                                        },
+                                        icon: Icon(
+                                          FontAwesomeIcons.magnifyingGlass,
+                                          color: tertColor,
+                                        )
                                     )
-                                )
-                            ),
-                          ),
+                                ),
+                              );
+                            },
+                          )
                         )
                       ],
                     ),

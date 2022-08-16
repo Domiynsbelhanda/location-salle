@@ -39,7 +39,7 @@ class _MyApp extends State<MyApp>{
       ),
       home: Consumer<Datas>(
         builder: (context, datas, child){
-          return RootApp(rooms: datas.rooms,);
+          return RootApp(rooms: datas.rooms, tab: 0,);
         },
       )
     );
