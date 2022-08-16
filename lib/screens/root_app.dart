@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:place_event/screens/ListHotels.dart';
+import '../models/rooms.dart';
 import '../screens/setting.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
@@ -9,35 +10,19 @@ import '../widgets/bottombar_item.dart';
 import 'home.dart';
 
 class RootApp extends StatefulWidget {
-  const RootApp({Key? key}) : super(key: key);
+  const RootApp({Key? key, this.rooms}) : super(key: key);
+  final List<Rooms>? rooms;
 
   @override
-  _RootAppState createState() => _RootAppState();
+  _RootAppState createState() => _RootAppState(roomss: rooms);
 }
 
 class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
+  _RootAppState({this.roomss});
+  final List<Rooms>? roomss;
   int activeTabIndex = 0;
-  List barItems = [
-    {
-      "icon": "assets/icons/home.svg",
-      "page": HomePage(),
-    },
-    {
-      "icon": "assets/icons/explore.svg",
-      "page": ListItem(rooms: features)
-    },
-    {
-      "icon": "assets/icons/pin-area.svg",
-      "page": Container(
-        alignment: Alignment.center,
-        child: Text("Nearby"),
-      ),
-    },
-    {
-      "icon": "assets/icons/setting.svg",
-      "page": SettingPage(),
-    },
-  ];
+
+  List barItems = [];
 
 //====== set animation=====
   late final AnimationController _controller = AnimationController(
@@ -53,6 +38,28 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller.forward();
+    print('belhanda ${roomss!}');
+    barItems = [
+      {
+        "icon": "assets/icons/home.svg",
+        "page": HomePage(),
+      },
+      {
+        "icon": "assets/icons/explore.svg",
+        "page": ListItem(rooms: roomss!)
+      },
+      {
+        "icon": "assets/icons/pin-area.svg",
+        "page": Container(
+          alignment: Alignment.center,
+          child: Text("Nearby"),
+        ),
+      },
+      {
+        "icon": "assets/icons/setting.svg",
+        "page": SettingPage(),
+      },
+    ];
   }
 
   @override

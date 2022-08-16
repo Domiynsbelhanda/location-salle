@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:place_event/screens/details.dart';
+import '../models/rooms.dart';
 import '../widgets/recommend_item.dart';
 
 class ListItem extends StatefulWidget{
 
-  final List? rooms;
+  final List<Rooms>? rooms;
 
   ListItem({this.rooms});
 

@@ -37,7 +37,11 @@ class _MyApp extends State<MyApp>{
       theme: ThemeData(
         primaryColor: primary,
       ),
-      home: RootApp(),
+      home: Consumer<Datas>(
+        builder: (context, datas, child){
+          return RootApp(rooms: datas.rooms,);
+        },
+      )
     );
   }
 
