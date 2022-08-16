@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import '../models/rooms.dart';
 import '../theme/color.dart';
 import 'custom_image.dart';
 
 class RecommendItem extends StatelessWidget {
   RecommendItem({Key? key, required this.data, this.onTap}) : super(key: key);
-  final data;
+  final Rooms data;
   final GestureTapCallback? onTap;
 
   @override
@@ -30,7 +31,7 @@ class RecommendItem extends StatelessWidget {
           child: Row(
             children: [
               CustomImage(
-                data["image"],
+                'https://place-event.com/public/storage/${data.images}',
                 radius: 15,
                 height: 80,
               ),
@@ -42,7 +43,7 @@ class RecommendItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data["name"],
+                      data.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -54,7 +55,7 @@ class RecommendItem extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      data["type"],
+                      data.town,
                       style: TextStyle(fontSize: 12, color: labelColor),
                     ),
                     SizedBox(
@@ -72,12 +73,12 @@ class RecommendItem extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            data["rate"],
+                            '${data.note}',
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           ),
                         ),
                         Text(
-                          data["price"],
+                          '${data.prices} \$',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/rooms.dart';
 import '../theme/color.dart';
 import '../widgets/favorite_box.dart';
 import 'custom_image.dart';
@@ -12,7 +13,7 @@ class FeatureItem extends StatelessWidget {
       this.onTap,
       this.onTapFavorite})
       : super(key: key);
-  final data;
+  final Rooms data;
   final double width;
   final double height;
   final GestureTapCallback? onTapFavorite;
@@ -43,7 +44,7 @@ class FeatureItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomImage(
-              data["image"],
+              'https://place-event.com/public/storage/${data.images}',
               width: double.infinity,
               height: 190,
               radius: 15,
@@ -55,7 +56,7 @@ class FeatureItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data["name"],
+                    data.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -73,7 +74,7 @@ class FeatureItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            data["type"],
+                            '${data.places} place(s). ',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(color: labelColor, fontSize: 13),
@@ -82,7 +83,7 @@ class FeatureItem extends StatelessWidget {
                             height: 8,
                           ),
                           Text(
-                            data["price"],
+                            '${data.prices}\$',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -95,7 +96,7 @@ class FeatureItem extends StatelessWidget {
                       FavoriteBox(
                         size: 16,
                         onTap: onTapFavorite,
-                        isFavorited: data["is_favorited"],
+                        isFavorited: data.confirmed,
                       )
                     ],
                   ),

@@ -13,8 +13,8 @@ class Rooms {
   int phones;
   String email;
   int note;
-  double? latitude;
-  double? longitude;
+  String? latitude;
+  String? longitude;
   bool confirmed;
   bool booster;
 
@@ -42,6 +42,6 @@ class Rooms {
         confirmed = json['confirmed'],
         booster = json['booster'],
         note = json['note'],
-        latitude = json['laltitude'],
+        latitude = json['latitude'],
         longitude = json['longitude'];
 }

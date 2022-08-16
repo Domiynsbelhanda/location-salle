@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../models/rooms.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
 import '../utils/data.dart';
@@ -11,8 +12,8 @@ import '../widgets/notification_box.dart';
 import '../widgets/recommend_item.dart';
 
 class Details extends StatefulWidget {
-  Details({Key? key, this.data}) : super(key: key);
-  final data;
+  Details({Key? key, required this.data}) : super(key: key);
+  final Rooms data;
 
   @override
   State<Details> createState() => _DetailsPageState();
@@ -97,7 +98,7 @@ class _DetailsPageState extends State<Details> {
             Container(
               margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
               child: Text(
-                '${widget.data["name"]}',
+                '${widget.data.title}',
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w500,
@@ -111,7 +112,7 @@ class _DetailsPageState extends State<Details> {
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
               child: Text(
-                widget.data["type"],
+                widget.data.town,
                 style: TextStyle(fontSize: 12, color: labelColor),
               ),
             ),
@@ -132,13 +133,13 @@ class _DetailsPageState extends State<Details> {
                     width: 3,
                   ),
                   Text(
-                    widget.data["rate"],
+                    '${widget.data.note}',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
 
                   SizedBox(width: 8.0,),
                   Text(
-                    widget.data["price"],
+                    '${widget.data.prices}',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -149,11 +150,17 @@ class _DetailsPageState extends State<Details> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 16, 0, 0),
-              child: Text(
-                widget.data["description"],
-                style: TextStyle(fontSize: 14, color: Colors.black),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.05,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(15, 16, 0, 0),
+                child: Text(
+                  '${widget.data.description}',
+                  style: TextStyle(
+                      fontSize: 14, color: Colors.black,
+
+                  ),
+                ),
               ),
             ),
           ],
@@ -163,44 +170,35 @@ class _DetailsPageState extends State<Details> {
   }
 
   getFeature() {
-    return CarouselSlider(
-      options: CarouselOptions(
+    return Center(
+      child: Container(
+        width: MediaQuery.of(context).size.width / 1.05,
         height: 220,
-        enlargeCenterPage: true,
-        disableCenter: true,
-        viewportFraction: .75,
-      ),
-      items: List.generate(
-        widget.data["album_images"].length,
-            (index) => Container(
-              width: 280,
-              height: 220,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.only(bottom: 5, top: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: shadowColor.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: Offset(1, 1), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomImage(
-                    widget.data["image"],
-                    width: double.infinity,
-                    height: 190,
-                    radius: 15,
-                  )
-                ],
-              ),
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.only(bottom: 5, top: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: shadowColor.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: Offset(1, 1), // changes position of shadow
             ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomImage(
+              '${widget.data.images}',
+              width: double.infinity,
+              height: 190,
+              radius: 15,
+            )
+          ],
+        ),
       ),
     );
   }

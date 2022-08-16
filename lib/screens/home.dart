@@ -34,7 +34,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     //readToken();
     Provider.of<Datas>(context, listen: false).categorie();
-    Provider.of<Datas>(context, listen: false).rooms();
+    Provider.of<Datas>(context, listen: false).room();
+    Provider.of<Datas>(context, listen: false).roomNoted();
   }
 
   void readToken() async {
@@ -225,59 +226,67 @@ class _HomePageState extends State<HomePage> {
   }
 
   getFeature() {
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: 300,
-        enlargeCenterPage: true,
-        disableCenter: true,
-        viewportFraction: .75,
-      ),
-      items: List.generate(
-        features.length,
-        (index) => FeatureItem(
-          data: features[index],
-          onTapFavorite: () {
-            setState(() {
-              features[index]["is_favorited"] =
-                  !features[index]["is_favorited"];
-            });
-          },
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Details(
-                data: features[index],
-              )),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  getRecommend() {
-    return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-          recommends.length,
-          (index) => Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: RecommendItem(
-              data: recommends[index],
+    return Consumer<Datas>(
+      builder: (context, datas, child){
+        return CarouselSlider(
+          options: CarouselOptions(
+            height: 300,
+            enlargeCenterPage: true,
+            disableCenter: true,
+            viewportFraction: .75,
+          ),
+          items: List.generate(
+            datas.rooms.length,
+                (index) => FeatureItem(
+              data: datas.rooms[index],
+              onTapFavorite: () {
+                setState(() {
+                  // features[index]["is_favorited"] =
+                  // !features[index]["is_favorited"];
+                });
+              },
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Details(
-                    data: recommends[index],
+                    data: datas.rooms[index],
                   )),
                 );
               },
             ),
           ),
-        ),
-      ),
+        );
+      },
+    );
+  }
+
+  getRecommend() {
+    return Consumer<Datas>(
+      builder: (context, datas, child){
+        return SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(
+              datas.noted.length,
+                  (index) => Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: RecommendItem(
+                  data: datas.noted[index],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Details(
+                        data: datas.noted[index],
+                      )),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
