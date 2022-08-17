@@ -10,9 +10,10 @@ import '../widgets/bottombar_item.dart';
 import 'home.dart';
 
 class RootApp extends StatefulWidget {
-  const RootApp({Key? key, this.rooms, this.tab}) : super(key: key);
+  const RootApp({Key? key, this.rooms, this.tab, this.error}) : super(key: key);
   final List<Rooms>? rooms;
   final int? tab;
+  final bool? error;
 
   @override
   _RootAppState createState() => _RootAppState();

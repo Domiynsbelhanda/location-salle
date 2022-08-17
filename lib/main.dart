@@ -39,7 +39,16 @@ class _MyApp extends State<MyApp>{
       ),
       home: Consumer<Datas>(
         builder: (context, datas, child){
-          return RootApp(rooms: datas.rooms, tab: 0,);
+          try {
+            return RootApp(rooms: datas.rooms, tab: 0,);
+          } catch (e){
+            return Scaffold(
+              body: Container(
+                child: Text('Belhanda'),
+              ),
+            );
+          }
+
         },
       )
     );
