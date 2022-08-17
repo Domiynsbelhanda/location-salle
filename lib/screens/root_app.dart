@@ -45,27 +45,51 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     super.initState();
     _controller.forward();
     activeTabIndex = widget.tab!;
-    barItems = [
-      {
-        "icon": "assets/icons/home.svg",
-        "page": HomePage(),
-      },
-      {
-        "icon": "assets/icons/explore.svg",
-        "page": ListItem(rooms: widget.rooms)
-      },
-      {
-        "icon": "assets/icons/pin-area.svg",
-        "page": Container(
-          alignment: Alignment.center,
-          child: Text("Nearby"),
-        ),
-      },
-      {
-        "icon": "assets/icons/setting.svg",
-        "page": SettingPage(),
-      },
-    ];
+    try{
+      barItems = [
+        {
+          "icon": "assets/icons/home.svg",
+          "page": HomePage(),
+        },
+        {
+          "icon": "assets/icons/explore.svg",
+          "page": ListItem(rooms: widget.rooms!)
+        },
+        {
+          "icon": "assets/icons/pin-area.svg",
+          "page": Container(
+            alignment: Alignment.center,
+            child: Text("Nearby"),
+          ),
+        },
+        {
+          "icon": "assets/icons/setting.svg",
+          "page": SettingPage(),
+        },
+      ];
+    } catch(e){
+      barItems = [
+        {
+          "icon": "assets/icons/home.svg",
+          "page": HomePage(),
+        },
+        {
+          "icon": "assets/icons/explore.svg",
+          "page": ListItem(rooms: [],)
+        },
+        {
+          "icon": "assets/icons/pin-area.svg",
+          "page": Container(
+            alignment: Alignment.center,
+            child: Text("Nearby"),
+          ),
+        },
+        {
+          "icon": "assets/icons/setting.svg",
+          "page": SettingPage(),
+        },
+      ];
+    }
   }
 
   @override

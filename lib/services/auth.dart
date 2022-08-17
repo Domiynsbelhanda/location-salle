@@ -19,10 +19,21 @@ class Auth extends ChangeNotifier{
     try {
       Dio.Response response = await dio()!.post('/sanctum/token', data: creds);
       String token = response.data.toString();
-
       this.tryToken(token: token);
     } catch (e){
         print(e);
+    }
+  }
+
+  void register ({required Map creds}) async {
+
+    try {
+      Dio.Response response = await dio()!.post('/register', data: creds);
+      String token = response.data.toString();
+
+      this.tryToken(token: token);
+    } catch (e){
+      print(e);
     }
   }
 
@@ -31,7 +42,7 @@ class Auth extends ChangeNotifier{
       return;
     } else {
       try {
-        Dio.Response response = await dio()!.post('/user',
+        Dio.Response response = await dio()!.get('/user',
           options: Dio.Options(
             headers: {'Authorization' : 'Bearer $token'}
           )
@@ -42,7 +53,7 @@ class Auth extends ChangeNotifier{
         this.storeToken(token: token);
         notifyListeners();
       } catch (e){
-
+        print('ca ne marche pas $e');
       }
     }
   }

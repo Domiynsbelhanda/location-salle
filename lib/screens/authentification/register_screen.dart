@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:place_event/main.dart';
 import 'package:place_event/screens/authentification/login_screen.dart';
+import 'package:place_event/screens/root_app.dart';
 import 'package:place_event/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -198,8 +200,14 @@ class _RegisterScreen extends State<RegisterScreen>{
                             'device_name' : _deviceName ?? 'unknown',
                           };
                           if(_formKey.currentState!.validate()){
-                            Provider.of<Auth>(context, listen: false).register(creds: data);
-                            Navigator.pop(context);
+                            if(_confirmPasswordController.text.trim() == _passwordController.text){
+                              Provider.of<Auth>(context, listen: false).register(creds: data);
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) =>
+                                      MyApp()
+                                  )
+                              );
+                            }
                           }
                         },
                         style: ButtonStyle(

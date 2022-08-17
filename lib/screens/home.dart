@@ -38,9 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   void readToken() async {
     String? token = await storage.read(key: 'token');
-    if(token != null){
-      Provider.of<Auth>(context, listen: false).tryToken(token: token!);
-    }
+    Provider.of<Auth>(context, listen: false).tryToken(token: token!);
   }
 
   @override
