@@ -5,15 +5,17 @@ import '../screens/setting.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
 import '../utils/data.dart';
+import '../utils/errorEnum.dart';
 import '../widgets/bottombar_item.dart';
 
 import 'home.dart';
 
 class RootApp extends StatefulWidget {
-  const RootApp({Key? key, this.rooms, this.tab, this.error}) : super(key: key);
+  const RootApp({Key? key, this.rooms, this.tab, required this.error, this.errorType}) : super(key: key);
   final List<Rooms>? rooms;
   final int? tab;
-  final bool? error;
+  final bool error;
+  final ErrorStatus? errorType;
 
   @override
   _RootAppState createState() => _RootAppState();
@@ -89,7 +91,28 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     return Scaffold(
         backgroundColor: appBgColor,
         bottomNavigationBar: getBottomBar(),
-        body: getBarPage());
+        body: Stack(
+          children: [
+            getBarPage(),
+            Positioned(
+              bottom: 0.0,
+              child: Container(
+                height: width(context) / 7,
+                width: width(context) / 1,
+                decoration: BoxDecoration(
+                  color: Colors.white
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+
+                  ],
+                )
+              ),
+            )
+          ],
+        ));
   }
 
   Widget getBarPage() {

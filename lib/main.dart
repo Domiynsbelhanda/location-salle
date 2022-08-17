@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:place_event/services/datas.dart';
+import 'package:place_event/utils/errorEnum.dart';
 import 'package:provider/provider.dart';
 import 'screens/root_app.dart';
 import 'services/auth.dart';
@@ -40,13 +41,10 @@ class _MyApp extends State<MyApp>{
       home: Consumer<Datas>(
         builder: (context, datas, child){
           try {
-            return RootApp(rooms: datas.rooms, tab: 0,);
+            return RootApp(rooms: datas.rooms, tab: 0, error: false,);
           } catch (e){
-            return Scaffold(
-              body: Container(
-                child: Text('Belhanda'),
-              ),
-            );
+            read();
+            return RootApp(tab: 0, error: false);
           }
 
         },
@@ -56,6 +54,10 @@ class _MyApp extends State<MyApp>{
 
   @override
   void initState() {
+    read();
+  }
+
+  void read(){
     Provider.of<Datas>(context, listen: false).categorie();
     Provider.of<Datas>(context, listen: false).room();
     Provider.of<Datas>(context, listen: false).roomNoted();

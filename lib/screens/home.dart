@@ -172,6 +172,7 @@ class _HomePageState extends State<HomePage> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(builder: (context) => RootApp(
+                                                error: false,
                                                 tab: 1,
                                                 rooms: contain,
                                               )),
@@ -330,6 +331,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => RootApp(
+                        error: false,
                         tab: 1,
                         rooms: contains,
                       )),
