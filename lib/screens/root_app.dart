@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:place_event/screens/ListHotels.dart';
+import 'package:provider/provider.dart';
 import '../models/rooms.dart';
 import '../screens/setting.dart';
+import '../services/datas.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
 import '../utils/data.dart';
@@ -125,6 +127,9 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
         IconButton(
             onPressed: (){
               setState(() {
+                Provider.of<Datas>(context, listen: false).categorie();
+                Provider.of<Datas>(context, listen: false).room();
+                Provider.of<Datas>(context, listen: false).roomNoted();
                 _refreshcurrIndex = _refreshcurrIndex == 0 ? 1 : 0;
               });
             },
