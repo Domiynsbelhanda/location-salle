@@ -49,7 +49,7 @@ class _MyApp extends State<MyApp>{
             return RootApp(rooms: datas.rooms, tab: 0, error: false,);
           } catch (e){
             read();
-            return RootApp(tab: 0, error: false);
+            return RootApp(tab: 0, error: true, errorType: ErrorStatus.offline,);
           }
 
         },

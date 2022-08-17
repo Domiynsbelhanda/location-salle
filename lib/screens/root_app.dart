@@ -103,19 +103,41 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
                 decoration: BoxDecoration(
                   color: Colors.white
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                        '${widget.network}'
-                    )
-                  ],
-                )
+                child: widget.errorType!.name == 'offline' ? offline() : SizedBox()
               ),
             ) : SizedBox()
           ],
         ));
+  }
+
+  Widget offline(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Erreur de connection,',
+          style: TextStyle(
+            color: primary
+          ),
+        ),
+
+        IconButton(
+            onPressed: (){
+
+            },
+            icon: Icon(
+              Icons.refresh,
+              color: primary,
+            )
+        ),
+        Text(
+          'Actualisé',
+          style: TextStyle(
+            color: primary
+          ),
+        )
+      ],
+    );
   }
 
   Widget getBarPage() {
