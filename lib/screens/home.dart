@@ -33,12 +33,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //readToken();
+    readToken();
   }
 
   void readToken() async {
     String? token = await storage.read(key: 'token');
-    Provider.of<Auth>(context, listen: false).tryToken(token: token!);
+    if(token != null){
+      Provider.of<Auth>(context, listen: false).tryToken(token: token!);
+    }
   }
 
   @override
@@ -242,34 +244,38 @@ class _HomePageState extends State<HomePage> {
   getFeature() {
     return Consumer<Datas>(
       builder: (context, datas, child){
-        return CarouselSlider(
-          options: CarouselOptions(
-            height: 300,
-            enlargeCenterPage: true,
-            disableCenter: true,
-            viewportFraction: .75,
-          ),
-          items: List.generate(
-            datas.rooms.length,
-                (index) => FeatureItem(
-              data: datas.rooms[index],
-              onTapFavorite: () {
-                setState(() {
-                  // features[index]["is_favorited"] =
-                  // !features[index]["is_favorited"];
-                });
-              },
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Details(
-                    data: datas.rooms[index],
-                  )),
-                );
-              },
+        try{
+          return CarouselSlider(
+            options: CarouselOptions(
+              height: 300,
+              enlargeCenterPage: true,
+              disableCenter: true,
+              viewportFraction: .75,
             ),
-          ),
-        );
+            items: List.generate(
+              datas.rooms.length,
+                  (index) => FeatureItem(
+                data: datas.rooms[index],
+                onTapFavorite: () {
+                  setState(() {
+                    // features[index]["is_favorited"] =
+                    // !features[index]["is_favorited"];
+                  });
+                },
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Details(
+                      data: datas.rooms[index],
+                    )),
+                  );
+                },
+              ),
+            ),
+          );
+        } catch (e){
+          return SizedBox();
+        }
       },
     );
   }
@@ -277,29 +283,33 @@ class _HomePageState extends State<HomePage> {
   getRecommend() {
     return Consumer<Datas>(
       builder: (context, datas, child){
-        return SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(
-              datas.noted.length,
-                  (index) => Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: RecommendItem(
-                  data: datas.noted[index],
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Details(
-                        data: datas.noted[index],
-                      )),
-                    );
-                  },
+        try{
+          return SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(
+                datas.noted.length,
+                    (index) => Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: RecommendItem(
+                    data: datas.noted[index],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Details(
+                          data: datas.noted[index],
+                        )),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-        );
+          );
+        } catch(e){
+          return SizedBox();
+        }
       },
     );
   }
@@ -307,41 +317,45 @@ class _HomePageState extends State<HomePage> {
   getCities() {
     return Consumer<Datas>(
       builder: (context, datas, child){
-        return SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(15, 5, 0, 10),
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(
-              datas.categories.length,
-                  (index) => Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: CityItem(
-                  data: datas.categories[index],
-                  onTap: () {
-                    List<Rooms>? allRooms = datas.rooms;
-                    List<Rooms>? contains = [];
-                    allRooms.forEach((room) {
-                      room.categories?.forEach((categorie) {
-                        if(categorie['slug'] == datas.categories[index].slug){
-                          contains.add(room);
-                        }
+        try{
+          return SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(15, 5, 0, 10),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(
+                datas.categories.length,
+                    (index) => Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: CityItem(
+                    data: datas.categories[index],
+                    onTap: () {
+                      List<Rooms>? allRooms = datas.rooms;
+                      List<Rooms>? contains = [];
+                      allRooms.forEach((room) {
+                        room.categories?.forEach((categorie) {
+                          if(categorie['slug'] == datas.categories[index].slug){
+                            contains.add(room);
+                          }
+                        });
                       });
-                    });
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RootApp(
-                        error: false,
-                        tab: 1,
-                        rooms: contains,
-                      )),
-                    );
-                  },
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RootApp(
+                          error: false,
+                          tab: 1,
+                          rooms: contains,
+                        )),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-        );
+          );
+        } catch(e){
+          return SizedBox();
+        }
       },
     );
   }

@@ -2,21 +2,20 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:place_event/screens/authentification/register_screen.dart';
 import 'package:place_event/utils/constant.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
 
-class LoginScreen extends StatefulWidget{
+class RegisterScreen extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _LoginScreen();
+    return _RegisterScreen();
   }
 }
 
-class _LoginScreen extends State<LoginScreen>{
+class _RegisterScreen extends State<RegisterScreen>{
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -73,7 +72,7 @@ class _LoginScreen extends State<LoginScreen>{
             Padding(
                 padding: const EdgeInsets.fromLTRB(16.0, 16.0, 0,0),
                 child: Text(
-                  'Connectez-vous',
+                  'Créer un compte',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 22.0
@@ -187,9 +186,7 @@ class _LoginScreen extends State<LoginScreen>{
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => RegisterScreen())
-                      );
+
                     },
                     child: Text(
                       'Cliquez ici.',
