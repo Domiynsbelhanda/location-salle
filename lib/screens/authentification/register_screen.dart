@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:place_event/screens/authentification/login_screen.dart';
 import 'package:place_event/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +18,10 @@ class RegisterScreen extends StatefulWidget{
 
 class _RegisterScreen extends State<RegisterScreen>{
 
+  TextEditingController _userNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   String? _deviceName;
@@ -48,6 +51,8 @@ class _RegisterScreen extends State<RegisterScreen>{
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _userNameController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -81,16 +86,6 @@ class _RegisterScreen extends State<RegisterScreen>{
             ),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0,16.0),
-              child: Text(
-                'Connectez-vous en utilisant votre adresse mail et mot de passe',
-                style: TextStyle(
-                    color: secondaryColor,
-                    fontSize: 15.0
-                ),
-              ),
-            ),
-            Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
                 key: _formKey,
@@ -98,6 +93,30 @@ class _RegisterScreen extends State<RegisterScreen>{
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      'Nom d\'utilisateur',
+                      style: TextStyle(
+                          fontSize: 18.0
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    TextFormField(
+                      controller: _userNameController,
+                      validator: (value) => value!.isEmpty ? 'Veuillez entrer un nom valide' : null,
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          filled: true,
+                          hintStyle: TextStyle(color: Colors.grey[800]),
+                          hintText: "Enter your username",
+                          fillColor: Colors.white70
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+
+
                     Text(
                       'Adresse mail',
                       style: TextStyle(
@@ -119,7 +138,6 @@ class _RegisterScreen extends State<RegisterScreen>{
                           fillColor: Colors.white70
                       ),
                     ),
-
                     SizedBox(height: 16.0),
 
                     Text(
@@ -143,7 +161,29 @@ class _RegisterScreen extends State<RegisterScreen>{
                           fillColor: Colors.white70
                       ),
                     ),
+                    SizedBox(height: 16.0),
 
+                    Text(
+                      'Confirmation MDP',
+                      style: TextStyle(
+                          fontSize: 18.0
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    TextFormField(
+                      controller: _confirmPasswordController,
+                      validator: (value) => value!.isEmpty ? 'Veuillez entrer un mot de passe valide' : null,
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          filled: true,
+                          hintStyle: TextStyle(color: Colors.grey[800]),
+                          hintText: "Enter your confirm password",
+                          fillColor: Colors.white70
+                      ),
+                    ),
                     SizedBox(height: 16.0),
 
                     SizedBox(
@@ -152,12 +192,13 @@ class _RegisterScreen extends State<RegisterScreen>{
                       child: ElevatedButton(
                         onPressed: () {
                           Map data = {
+                            'name': _userNameController.text,
                             'email': _emailController.text,
                             'password' : _passwordController.text,
                             'device_name' : _deviceName ?? 'unknown',
                           };
                           if(_formKey.currentState!.validate()){
-                            Provider.of<Auth>(context, listen: false).login(creds: data);
+                            Provider.of<Auth>(context, listen: false).register(creds: data);
                             Navigator.pop(context);
                           }
                         },
@@ -165,7 +206,7 @@ class _RegisterScreen extends State<RegisterScreen>{
                           backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
                         ),
                         child: Text(
-                          'CONNEXION'
+                          'INSCRIPTION'
                         ),
                       ),
                     ),
@@ -179,17 +220,19 @@ class _RegisterScreen extends State<RegisterScreen>{
               child: Row(
                 children: [
                   Text(
-                    'Vous n\'avez pas de compte? ',
+                    'Vous avez un compte? ',
                     style: TextStyle(
                         fontSize: 15.0
                     ),
                   ),
                   GestureDetector(
                     onTap: (){
-
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => LoginScreen())
+                      );
                     },
                     child: Text(
-                      'Cliquez ici.',
+                      'Connectez-vous.',
                       style: TextStyle(
                         color: primaryColor,
                           fontSize: 15.0
@@ -200,21 +243,6 @@ class _RegisterScreen extends State<RegisterScreen>{
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0,16.0),
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  'Fermer la page d\'authentification.',
-                  style: TextStyle(
-                      color: secondaryColor,
-                      fontSize: 15.0
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),

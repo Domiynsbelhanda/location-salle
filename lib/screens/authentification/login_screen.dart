@@ -192,7 +192,7 @@ class _LoginScreen extends State<LoginScreen>{
                       );
                     },
                     child: Text(
-                      'Cliquez ici.',
+                      'Inscrivez-vous.',
                       style: TextStyle(
                         color: primaryColor,
                           fontSize: 15.0
