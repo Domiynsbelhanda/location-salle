@@ -1,4 +1,4 @@
 enum ErrorStatus {
   nodata,
-  nonetwork,
+  offline,
 }

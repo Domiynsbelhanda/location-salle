@@ -11,11 +11,12 @@ import '../widgets/bottombar_item.dart';
 import 'home.dart';
 
 class RootApp extends StatefulWidget {
-  const RootApp({Key? key, this.rooms, this.tab, required this.error, this.errorType}) : super(key: key);
+  const RootApp({Key? key, this.rooms, this.tab, this.error, this.errorType, this.network}) : super(key: key);
   final List<Rooms>? rooms;
   final int? tab;
-  final bool error;
+  final bool? error;
   final ErrorStatus? errorType;
+  final String? network;
 
   @override
   _RootAppState createState() => _RootAppState();
@@ -94,7 +95,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
         body: Stack(
           children: [
             getBarPage(),
-            Positioned(
+            widget.error! ? Positioned(
               bottom: 0.0,
               child: Container(
                 height: width(context) / 7,
@@ -106,11 +107,13 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
+                    Text(
+                        '${widget.network}'
+                    )
                   ],
                 )
               ),
-            )
+            ) : SizedBox()
           ],
         ));
   }

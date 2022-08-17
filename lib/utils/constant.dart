@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -44,4 +46,13 @@ Widget backButton(context){
       iconSize: width(context) / 15,
     ),
   );
+}
+
+Future<bool> hasNetwork() async {
+  try {
+    final result = await InternetAddress.lookup('https://place-event.com/public/');
+    return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+  } on SocketException catch (_) {
+    return false;
+  }
 }
