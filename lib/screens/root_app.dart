@@ -26,6 +26,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
 
   int activeTabIndex = 0;
   List barItems = [];
+  int _refreshcurrIndex = 0;
 
 //====== set animation=====
   late final AnimationController _controller = AnimationController(
@@ -123,12 +124,25 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
 
         IconButton(
             onPressed: (){
-
+              setState(() {
+                _refreshcurrIndex = _refreshcurrIndex == 0 ? 1 : 0;
+              });
             },
-            icon: Icon(
-              Icons.refresh,
-              color: primary,
-            )
+            icon: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                transitionBuilder: (child, anim) => RotationTransition(
+                  turns: child.key == ValueKey('icon1')
+                      ? Tween<double>(begin: 1, end: 0.75).animate(anim)
+                      : Tween<double>(begin: 0.75, end: 1).animate(anim),
+                  child: FadeTransition(opacity: anim, child: child),
+                ),
+                child: _refreshcurrIndex == 0
+                    ? Icon(Icons.refresh, color: primary, key: const ValueKey('icon1'))
+                    : Icon(
+                  Icons.refresh_sharp,
+                  color: primary,
+                  key: const ValueKey('icon2'),
+                )),
         ),
         Text(
           'Actualisé',
