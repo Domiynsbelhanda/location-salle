@@ -3,20 +3,20 @@ import 'categories.dart';
 class Rooms {
   int id;
   String key;
-  int user_id;
+  var user_id;
   String title;
   String description;
   String images;
-  int prices;
-  int places;
+  var prices;
+  var places;
   String town;
   String commune;
   String address;
-  int phones;
+  var phones;
   String email;
-  int note;
-  String? latitude;
-  String? longitude;
+  var note;
+  var latitude;
+  var longitude;
   bool confirmed;
   bool booster;
   List<dynamic>? categories;
@@ -24,7 +24,7 @@ class Rooms {
   Rooms({
     required this.id, required this.key, required this.user_id, required this.title, required this.description,
     required this.images, required this.prices, required this.places, required this.town, required this.commune,
-    required this.address, required this.phones, required this.email, required this.confirmed, required this.booster,
+    required this.address, this.phones, required this.email, required this.confirmed, required this.booster,
     required this.note, this.latitude, this.longitude, this.categories
   });
 

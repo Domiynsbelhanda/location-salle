@@ -7,7 +7,7 @@ class User {
   String? email_verified_at;
   String? phone;
   String? address;
-  int? role_id;
+  var role_id;
   String? images;
   String? date;
   String? gender;

@@ -76,6 +76,7 @@ class Auth extends ChangeNotifier{
         this.storeToken(token: token);
         notifyListeners();
       } catch (e){
+        print('Errorification : $e');
         showAlertDialog(context, 'User Profile', '${e.toString()}');
       }
     }
