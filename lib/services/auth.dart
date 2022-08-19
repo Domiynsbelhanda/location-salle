@@ -26,7 +26,7 @@ class Auth extends ChangeNotifier{
         var res = jsonDecode(response.data);
         if(res['code'] == 1){
           String token = res['token'].toString();
-          this.tryToken(token: token);
+          this.tryToken(token: token, context: context);
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => MyApp())
           );
@@ -47,7 +47,7 @@ class Auth extends ChangeNotifier{
         var res = jsonDecode(response.data);
         if(res['code'] == 1){
           String token = res['token'].toString();
-          this.tryToken(token: token);
+          this.tryToken(token: token, context: context);
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => MyApp())
           );
@@ -60,7 +60,7 @@ class Auth extends ChangeNotifier{
     }
   }
 
-  void tryToken({required String token}) async {
+  void tryToken({required String token, required BuildContext context}) async {
     if(token == null){
       return;
     } else {
@@ -76,7 +76,7 @@ class Auth extends ChangeNotifier{
         this.storeToken(token: token);
         notifyListeners();
       } catch (e){
-        print('ca ne marche pas $e');
+        showAlertDialog(context, 'User Profile', '${e.toString()}');
       }
     }
   }
