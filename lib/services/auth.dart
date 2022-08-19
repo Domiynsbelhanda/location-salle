@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as Dio;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../main.dart';
 import '../models/user.dart';
 import '../utils/constant.dart';
 import 'dio.dart';
@@ -25,7 +26,10 @@ class Auth extends ChangeNotifier{
         var res = jsonDecode(response.data);
         if(res['code'] == 1){
           String token = res['token'].toString();
-          //this.tryToken(token: token);
+          this.tryToken(token: token);
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => MyApp())
+          );
         } else {
           showAlertDialog(context, 'Authentification', '${res['data'].toString()}');
         }
