@@ -56,3 +56,56 @@ Future<bool> hasNetwork() async {
     return false;
   }
 }
+
+showAlertDialog(BuildContext context, String titre, String message) {
+
+  // set up the button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text('$titre'),
+    content: Text('$message.'),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+void spinner(BuildContext context, String text){
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return Dialog(
+        child: Container(
+          height: width(context)/ 4,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(width: 16.0,),
+              new CircularProgressIndicator(),
+              SizedBox(width: 16.0),
+              new Text(
+                '$text'
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}

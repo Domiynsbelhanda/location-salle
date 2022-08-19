@@ -13,6 +13,8 @@ import 'theme/color.dart';
 import '../utils/data.dart';
 
 void main() {
+  // var out = '\\x01\\x01';
+  // print('printing out as --> ${out.replaceAll('\\x', 'X')} <--');
   runApp(
     MultiProvider(
       providers: [

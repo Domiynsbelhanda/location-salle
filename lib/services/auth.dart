@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as Dio;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/user.dart';
+import '../utils/constant.dart';
 import 'dio.dart';
 
 class Auth extends ChangeNotifier{
@@ -14,14 +17,21 @@ class Auth extends ChangeNotifier{
 
   final storage = new FlutterSecureStorage();
 
-  void login ({required Map creds}) async {
+  void login ({required Map creds, required BuildContext context}) async {
 
     try {
       Dio.Response response = await dio()!.post('/sanctum/token', data: creds);
-      String token = response.data.toString();
-      this.tryToken(token: token);
+      if(response.statusCode == 200){
+        var res = jsonDecode(response.data);
+        if(res['code'] == 1){
+          String token = res['token'].toString();
+          //this.tryToken(token: token);
+        } else {
+          showAlertDialog(context, 'Authentification', '${res['data'].toString()}');
+        }
+      }
     } catch (e){
-        print(e);
+      showAlertDialog(context, 'Authentification', '${e.toString()}');
     }
   }
 
