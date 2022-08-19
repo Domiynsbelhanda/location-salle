@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:place_event/screens/ListHotels.dart';
 import 'package:provider/provider.dart';
 import '../models/rooms.dart';
+import '../models/user.dart';
 import '../screens/setting.dart';
 import '../services/datas.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
-import '../utils/data.dart';
 import '../utils/errorEnum.dart';
 import '../widgets/bottombar_item.dart';
 
 import 'home.dart';
 
 class RootApp extends StatefulWidget {
-  const RootApp({Key? key, this.rooms, this.tab, this.error, this.errorType, this.network}) : super(key: key);
+  const RootApp({Key? key, this.rooms, this.tab,
+    this.error, this.errorType, this.network, this.user}) : super(key: key);
   final List<Rooms>? rooms;
   final int? tab;
   final bool? error;
   final ErrorStatus? errorType;
   final String? network;
+  final User? user;
 
   @override
   _RootAppState createState() => _RootAppState();
@@ -86,7 +88,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
         },
         {
           "icon": "assets/icons/setting.svg",
-          "page": SettingPage(),
+          "page": SettingPage()
         },
       ];
     }

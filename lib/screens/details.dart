@@ -1,15 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../models/rooms.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
-import '../utils/data.dart';
-import '../widgets/city_item.dart';
 import '../widgets/custom_image.dart';
-import '../widgets/feature_item.dart';
-import '../widgets/notification_box.dart';
-import '../widgets/recommend_item.dart';
 
 class Details extends StatefulWidget {
   Details({Key? key, required this.data}) : super(key: key);

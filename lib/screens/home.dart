@@ -33,13 +33,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    readToken();
   }
 
-  void readToken() async {
-    String? token = await storage.read(key: 'token');
-    Provider.of<Auth>(context, listen: false).tryToken(token: token!, context: context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +76,16 @@ class _HomePageState extends State<HomePage> {
               //auth.user.email
               notifiedNumber: auth.authenticated ? 1 : 0,
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => LoginScreen())
-                );
+                if(auth.authenticated){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) =>
+                          RootApp(tab: 3, error: false,))
+                  );
+                } else {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LoginScreen())
+                  );
+                }
               },
             );
           },

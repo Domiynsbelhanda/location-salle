@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:place_event/services/datas.dart';
 import 'package:place_event/utils/constant.dart';
 import 'package:place_event/utils/errorEnum.dart';
@@ -10,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'screens/root_app.dart';
 import 'services/auth.dart';
 import 'theme/color.dart';
-import '../utils/data.dart';
 
 void main() {
   // var out = '\\x01\\x01';
@@ -50,7 +50,6 @@ class _MyApp extends State<MyApp>{
           try {
             return RootApp(rooms: datas.rooms, tab: 0, error: false,);
           } catch (e){
-            read();
             return RootApp(tab: 0, error: true, errorType: ErrorStatus.offline,);
           }
 
@@ -63,11 +62,20 @@ class _MyApp extends State<MyApp>{
   void initState() {
     super.initState();
     read();
+    readToken();
   }
 
   void read(){
     Provider.of<Datas>(context, listen: false).categorie();
     Provider.of<Datas>(context, listen: false).room();
     Provider.of<Datas>(context, listen: false).roomNoted();
+  }
+
+  void readToken() async {
+    final storage = new FlutterSecureStorage();
+    String? token = await storage.read(key: 'token');
+    if(token != null){
+      Provider.of<Auth>(context, listen: false).tryToken(token: token, context: context);
+    }
   }
 }
