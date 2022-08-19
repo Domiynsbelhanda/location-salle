@@ -39,15 +39,24 @@ class Auth extends ChangeNotifier{
     }
   }
 
-  void register ({required Map creds}) async {
+  void register ({required Map creds, required BuildContext context}) async {
 
     try {
       Dio.Response response = await dio()!.post('/register', data: creds);
-      String token = response.data.toString();
-
-      this.tryToken(token: token);
+      if(response.statusCode == 200){
+        var res = jsonDecode(response.data);
+        if(res['code'] == 1){
+          String token = res['token'].toString();
+          this.tryToken(token: token);
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => MyApp())
+          );
+        } else {
+          showAlertDialog(context, 'Authentification', '${res['data'].toString()}');
+        }
+      }
     } catch (e){
-      print(e);
+      showAlertDialog(context, 'Authentification', '${e.toString()}');
     }
   }
 

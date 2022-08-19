@@ -201,12 +201,32 @@ class _RegisterScreen extends State<RegisterScreen>{
                           };
                           if(_formKey.currentState!.validate()){
                             if(_confirmPasswordController.text.trim() == _passwordController.text){
-                              Provider.of<Auth>(context, listen: false).register(creds: data);
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) =>
-                                      MyApp()
-                                  )
-                              );
+                              // showDialog(
+                              //   context: context,
+                              //   barrierDismissible: false,
+                              //   builder: (BuildContext context) {
+                              //     return Dialog(
+                              //       child: Container(
+                              //         height: width(context)/ 4,
+                              //         child: Row(
+                              //           mainAxisSize: MainAxisSize.min,
+                              //           children: [
+                              //             SizedBox(width: 16.0,),
+                              //             new CircularProgressIndicator(),
+                              //             SizedBox(width: 16.0),
+                              //             new Text(
+                              //                 'Chargement...'
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     );
+                              //   },
+                              // );
+                              Provider.of<Auth>(context, listen: false).register(creds: data, context: context);
+                              //Navigator.pop(context);
+                            } else {
+                              showAlertDialog(context, 'Authentification', 'Mot de passe de confirmation incorrect.');
                             }
                           }
                         },
