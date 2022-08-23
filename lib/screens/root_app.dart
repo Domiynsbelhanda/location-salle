@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:place_event/screens/ListHotels.dart';
+import 'package:place_event/screens/mapsHotels.dart';
 import 'package:provider/provider.dart';
 import '../models/rooms.dart';
 import '../models/user.dart';
@@ -59,10 +60,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
         },
         {
           "icon": "assets/icons/pin-area.svg",
-          "page": Container(
-            alignment: Alignment.center,
-            child: Text("Nearby"),
-          ),
+          "page": MapHotels(),
         },
         {
           "icon": "assets/icons/setting.svg",
@@ -81,10 +79,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
         },
         {
           "icon": "assets/icons/pin-area.svg",
-          "page": Container(
-            alignment: Alignment.center,
-            child: Text("Nearby"),
-          ),
+          "page": MapHotels(),
         },
         {
           "icon": "assets/icons/setting.svg",
