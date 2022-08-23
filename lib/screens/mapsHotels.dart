@@ -21,18 +21,61 @@ class _MapHotels extends State<MapHotels> {
   late GoogleMapController _mapController;
   final Set<Marker> markers = new Set();
 
+  LatLng _lastMapPosition = _center;
+
+  static const LatLng _center = const LatLng(45.521563, -122.677433);
+
   _onMapCreated(GoogleMapController controller) {
     if (mounted)
       setState(() {
         _mapController = controller;
         controller.setMapStyle(_mapStyle);
+
+        LatLng latLng_1 = LatLng(
+          double.parse(widget.rooms![0].latitude),
+          double.parse(widget.rooms![0].longitude),
+        );
+        LatLng latLng_2 = LatLng(
+          double.parse(widget.rooms![widget.rooms!.length -1].latitude),
+          double.parse(widget.rooms![widget.rooms!.length -1].longitude),
+        );
+
+        for(var i = 0; i < widget.rooms!.length; i++){
+          markers.add(Marker( //add first marker
+            markerId: MarkerId('${widget.rooms![i].key}'),
+            position: LatLng(double.parse(widget.rooms![i].latitude), double.parse(widget.rooms![i].longitude)), //position of marker
+            infoWindow: InfoWindow( //popup info
+              title: '${widget.rooms![i].title}',
+              snippet: '${widget.rooms![i].description}',
+            ),
+            icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+          ));
+        }
+
+        LatLngBounds bound = LatLngBounds(southwest: latLng_1, northeast: latLng_2);
+        CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 50);
+        this._mapController.animateCamera(u2).then((void v){
+          check(u2,this._mapController);
+        });
       });
   }
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+  void check(CameraUpdate u, GoogleMapController c) async {
+    c.animateCamera(u);
+    _mapController.animateCamera(u);
+    LatLngBounds l1=await c.getVisibleRegion();
+    LatLngBounds l2=await c.getVisibleRegion();
+    print(l1.toString());
+    print(l2.toString());
+    if(l1.southwest.latitude==-90 ||l2.southwest.latitude==-90)
+      check(u, c);
+  }
+
+  void _onCameraMove(CameraPosition position) {
+    _lastMapPosition = position.target;
+  }
+
+  late CameraPosition _kGooglePlex;
 
   @override
   initState() {
@@ -40,30 +83,23 @@ class _MapHotels extends State<MapHotels> {
     rootBundle.loadString('assets/text/map_style.txt').then((string) {
       _mapStyle = string;
     });
-
-    try{
-      print('taillification paille ${widget.rooms!.length}');
-    } catch(e){
-
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _kGooglePlex = CameraPosition(
+      target: LatLng(double.parse(widget.rooms![0].latitude), double.parse(widget.rooms![0].longitude)),
+      zoom: 14.4746,
+    );
     return Scaffold(
-      body: Consumer<Datas>(
-        builder: (context, datas, child){
-          try {
-            return GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: _onMapCreated,
-              markers: markers,
-            );
-          } catch(e){
-            return SizedBox();
-          }
-        }),
+      body: GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: _onMapCreated,
+        markers: markers,
+        zoomControlsEnabled: true,
+        onCameraMove: _onCameraMove,
+      )
     );
   }
 }
