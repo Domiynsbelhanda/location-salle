@@ -226,11 +226,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 22,
                         fontWeight: FontWeight.w500,
                         color: textColor),
-                  ),
-                  Text(
-                    "Voir toutes",
-                    style: TextStyle(fontSize: 14, color: darker),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -253,7 +249,7 @@ class _HomePageState extends State<HomePage> {
               viewportFraction: .75,
             ),
             items: List.generate(
-              datas.rooms.length,
+              datas.rooms.length < 6 ? datas.rooms.length : 6,
                   (index) => FeatureItem(
                 data: datas.rooms[index],
                 onTapFavorite: () {

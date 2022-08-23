@@ -41,6 +41,18 @@ class Datas extends ChangeNotifier{
     }
   }
 
+  void recommandation() async {
+    try {
+      Dio.Response response = await dio()!.get('/rooms/recommandation');
+      Iterable datas = jsonDecode(response.data);
+      List<Rooms>? rooms = List<Rooms>.from(datas.map((model)=> Rooms.fromJson(model)));
+      _rooms = rooms;
+      notifyListeners();
+    } catch (e){
+      print(e);
+    }
+  }
+
   void roomNoted() async {
     try {
       Dio.Response response = await dio()!.get('/rooms/noted');
