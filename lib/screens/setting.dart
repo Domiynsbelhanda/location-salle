@@ -158,13 +158,21 @@ class _SettingPageState extends State<SettingPage> {
               leadingIconColor: green,
               onTap: () {}),
           SizedBox(height: 10),
-          SettingItem(
-            title: "Deconnextion",
-            leadingIcon: Icons.logout_outlined,
-            leadingIconColor: Colors.grey.shade400,
-            onTap: () {
-              showConfirmLogout();
-            },
+          Consumer<Auth>(
+            builder: (context, auth, child){
+              try{
+                return SettingItem(
+                  title: "Deconnextion",
+                  leadingIcon: Icons.logout_outlined,
+                  leadingIconColor: Colors.grey.shade400,
+                  onTap: () {
+                    showConfirmLogout();
+                  },
+                );
+              } catch(e){
+                return SizedBox();
+              }
+            }
           ),
           SizedBox(height: 10),
         ],
