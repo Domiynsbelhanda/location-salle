@@ -43,12 +43,14 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     curve: Curves.fastOutSlowIn,
   );
 
+  late var data;
+
   @override
   void initState() {
     super.initState();
     _controller.forward();
     activeTabIndex = widget.tab!;
-    try{
+
       barItems = [
         {
           "icon": "assets/icons/home.svg",
@@ -60,33 +62,13 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
         },
         {
           "icon": "assets/icons/pin-area.svg",
-          "page": MapHotels(),
+          "page": MapHotels(rooms: widget.rooms!),
         },
         {
           "icon": "assets/icons/setting.svg",
           "page": SettingPage(),
         },
       ];
-    } catch(e){
-      barItems = [
-        {
-          "icon": "assets/icons/home.svg",
-          "page": HomePage(),
-        },
-        {
-          "icon": "assets/icons/explore.svg",
-          "page": ListItem(rooms: [],)
-        },
-        {
-          "icon": "assets/icons/pin-area.svg",
-          "page": MapHotels(),
-        },
-        {
-          "icon": "assets/icons/setting.svg",
-          "page": SettingPage()
-        },
-      ];
-    }
   }
 
   @override

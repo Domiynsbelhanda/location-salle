@@ -2,9 +2,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:place_event/services/datas.dart';
+import 'package:place_event/utils/constant.dart';
+import 'package:provider/provider.dart';
+
+import '../models/rooms.dart';
 
 
 class MapHotels extends StatefulWidget {
+  MapHotels({this.rooms});
+  final List<Rooms>? rooms;
   @override
   State<MapHotels> createState() => _MapHotels();
 }
@@ -33,16 +40,30 @@ class _MapHotels extends State<MapHotels> {
     rootBundle.loadString('assets/text/map_style.txt').then((string) {
       _mapStyle = string;
     });
+
+    try{
+      print('taillification paille ${widget.rooms!.length}');
+    } catch(e){
+
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: _onMapCreated,
-      ),
+    return Scaffold(
+      body: Consumer<Datas>(
+        builder: (context, datas, child){
+          try {
+            return GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: _onMapCreated,
+              markers: markers,
+            );
+          } catch(e){
+            return SizedBox();
+          }
+        }),
     );
   }
 }

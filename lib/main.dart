@@ -52,7 +52,6 @@ class _MyApp extends State<MyApp>{
           } catch (e){
             return RootApp(tab: 0, error: true, errorType: ErrorStatus.offline,);
           }
-
         },
       )
     );

@@ -58,28 +58,32 @@ class _ListItem extends State<ListItem>{
           ) :
           Consumer<Datas>(
             builder: (context, datas, child){
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: datas.rooms.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: RecommendItem(
-                        data: datas.rooms[index],
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Details(
-                              data: datas.rooms[index],
-                            )),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-              );
+              try{
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: datas.rooms.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: RecommendItem(
+                          data: datas.rooms[index],
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Details(
+                                data: datas.rooms[index],
+                              )),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                );
+              } catch(e){
+                return SizedBox();
+              }
             }
           )
         ],
