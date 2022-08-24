@@ -287,6 +287,76 @@ class _DetailsPageState extends State<Details> {
               ),
             ),
 
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 0, 16),
+              child: Container(
+                child: Text(
+                  'Contact de la salle',
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: textColor),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Table(
+
+                border: TableBorder.all(
+                    color: Colors.black,
+                    style: BorderStyle.solid,
+                    width: 1
+                ),
+                children: [
+                  TableRow( children: [
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Téléphone'),
+                          )
+                        ]
+                    ),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.data.phones}'),
+                          )
+                        ]
+                    ),
+                  ]),
+                  TableRow( children: [
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Email'),
+                          )
+                        ]
+                    ),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.data.email}'),
+                          )
+                        ]
+                    ),
+                  ]),
+                ],
+              ),
+            ),
+
             Center(
               child: ElevatedButton(
                 style: ButtonStyle(
