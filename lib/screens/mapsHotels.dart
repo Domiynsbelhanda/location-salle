@@ -1,10 +1,7 @@
-import 'dart:async';
+import 'package:label_marker/label_marker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:place_event/services/datas.dart';
-import 'package:place_event/utils/constant.dart';
-import 'package:provider/provider.dart';
 
 import '../models/rooms.dart';
 
@@ -26,7 +23,7 @@ class _MapHotels extends State<MapHotels> {
   static const LatLng _center = const LatLng(45.521563, -122.677433);
 
   _onMapCreated(GoogleMapController controller) {
-    if (mounted)
+    if (mounted) {
       setState(() {
         _mapController = controller;
         controller.setMapStyle(_mapStyle);
@@ -41,15 +38,34 @@ class _MapHotels extends State<MapHotels> {
         );
 
         for(var i = 0; i < widget.rooms!.length; i++){
-          markers.add(Marker( //add first marker
-            markerId: MarkerId('${widget.rooms![i].key}'),
-            position: LatLng(double.parse(widget.rooms![i].latitude), double.parse(widget.rooms![i].longitude)), //position of marker
-            infoWindow: InfoWindow( //popup info
-              title: '${widget.rooms![i].title}',
-              snippet: '${widget.rooms![i].description}',
+          markers.addLabelMarker(LabelMarker(
+            label: '${widget.rooms![i].title}',
+            textStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 50.0
             ),
-            icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-          ));
+            markerId: MarkerId('${widget.rooms![i].key}'),
+            position: LatLng(
+                double.parse(widget.rooms![i].latitude),
+                double.parse(widget.rooms![i].longitude)
+            ),
+            backgroundColor: Colors.green,
+          )).then((value) {
+            setState(() {});
+          },
+          );
+          // markers.add(Marker( //add first marker
+          //   markerId: MarkerId('${widget.rooms![i].key}'),
+          //   position: LatLng(
+          //       double.parse(widget.rooms![i].latitude),
+          //       double.parse(widget.rooms![i].longitude)
+          //   ), //position of marker
+          //   infoWindow: InfoWindow( //popup info
+          //     title: '${widget.rooms![i].title}',
+          //     snippet: '${widget.rooms![i].description}',
+          //   ),
+          //   icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+          // ));
         }
 
         LatLngBounds bound = LatLngBounds(southwest: latLng_1, northeast: latLng_2);
@@ -58,6 +74,7 @@ class _MapHotels extends State<MapHotels> {
           check(u2,this._mapController);
         });
       });
+    }
   }
 
   void check(CameraUpdate u, GoogleMapController c) async {

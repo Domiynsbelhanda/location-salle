@@ -51,24 +51,45 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     _controller.forward();
     activeTabIndex = widget.tab!;
 
-      barItems = [
-        {
-          "icon": "assets/icons/home.svg",
-          "page": HomePage(),
-        },
-        {
-          "icon": "assets/icons/explore.svg",
-          "page": ListItem(rooms: widget.rooms!)
-        },
-        {
-          "icon": "assets/icons/pin-area.svg",
-          "page": MapHotels(rooms: widget.rooms!),
-        },
-        {
-          "icon": "assets/icons/setting.svg",
-          "page": SettingPage(),
-        },
-      ];
+      try{
+        barItems = [
+          {
+            "icon": "assets/icons/home.svg",
+            "page": HomePage(),
+          },
+          {
+            "icon": "assets/icons/explore.svg",
+            "page": ListItem(rooms: widget.rooms!)
+          },
+          {
+            "icon": "assets/icons/pin-area.svg",
+            "page": MapHotels(rooms: widget.rooms!),
+          },
+          {
+            "icon": "assets/icons/setting.svg",
+            "page": SettingPage(),
+          },
+        ];
+      } catch(e){
+        barItems = [
+          {
+            "icon": "assets/icons/home.svg",
+            "page": HomePage(),
+          },
+          {
+            "icon": "assets/icons/explore.svg",
+            "page": ListItem(rooms: [])
+          },
+          {
+            "icon": "assets/icons/pin-area.svg",
+            "page": MapHotels(rooms: widget.rooms!),
+          },
+          {
+            "icon": "assets/icons/setting.svg",
+            "page": SettingPage(),
+          },
+        ];
+      }
   }
 
   @override
