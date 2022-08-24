@@ -173,6 +173,120 @@ class _DetailsPageState extends State<Details> {
 
             SizedBox(height: 16.0,),
 
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 0, 16),
+              child: Container(
+                child: Text(
+                  'Information sur la salle',
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: textColor),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Table(
+
+                border: TableBorder.all(
+                    color: Colors.black,
+                    style: BorderStyle.solid,
+                    width: 1
+                ),
+                children: [
+                  TableRow( children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Adresse'),
+                          )
+                        ]
+                    ),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.data.address}'),
+                          )
+                        ]
+                    ),
+                  ]),
+                  TableRow( children: [
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Commune'),
+                          )
+                        ]
+                    ),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.data.commune}'),
+                          )
+                        ]
+                    ),
+                  ]),
+                  TableRow( children: [
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Ville'),
+                          )
+                        ]
+                    ),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.data.town}'),
+                          )
+                        ]
+                    ),
+                  ]),
+                  TableRow( children: [
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Capacité'),
+                          )
+                        ]
+                    ),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children:[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.data.places}'),
+                          )
+                        ]
+                    ),
+                  ]),
+                ],
+              ),
+            ),
+
             Center(
               child: ElevatedButton(
                 style: ButtonStyle(
