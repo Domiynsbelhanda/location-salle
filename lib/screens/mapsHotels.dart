@@ -2,6 +2,7 @@ import 'package:label_marker/label_marker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:place_event/widgets/room_map_dialog.dart';
 
 import '../models/rooms.dart';
 
@@ -51,7 +52,7 @@ class _MapHotels extends State<MapHotels> {
             ),
             backgroundColor: Colors.green,
             onTap: (){
-              
+              show_room_map_dialog(context, widget.rooms![i]);
             }
           )).then((value) {
             setState(() {});
