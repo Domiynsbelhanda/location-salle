@@ -39,7 +39,7 @@ class _MapHotels extends State<MapHotels> {
 
         for(var i = 0; i < widget.rooms!.length; i++){
           markers.addLabelMarker(LabelMarker(
-            label: '${widget.rooms![i].title}',
+            label: '${widget.rooms![i].title} \n ${widget.rooms![i].prices} \$',
             textStyle: TextStyle(
               color: Colors.white,
               fontSize: 50.0
@@ -50,22 +50,13 @@ class _MapHotels extends State<MapHotels> {
                 double.parse(widget.rooms![i].longitude)
             ),
             backgroundColor: Colors.green,
+            onTap: (){
+              
+            }
           )).then((value) {
             setState(() {});
           },
           );
-          // markers.add(Marker( //add first marker
-          //   markerId: MarkerId('${widget.rooms![i].key}'),
-          //   position: LatLng(
-          //       double.parse(widget.rooms![i].latitude),
-          //       double.parse(widget.rooms![i].longitude)
-          //   ), //position of marker
-          //   infoWindow: InfoWindow( //popup info
-          //     title: '${widget.rooms![i].title}',
-          //     snippet: '${widget.rooms![i].description}',
-          //   ),
-          //   icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-          // ));
         }
 
         LatLngBounds bound = LatLngBounds(southwest: latLng_1, northeast: latLng_2);
