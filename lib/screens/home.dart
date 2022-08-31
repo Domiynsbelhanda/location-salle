@@ -324,11 +324,11 @@ class _HomePageState extends State<HomePage> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: List.generate(
-                datas.noted.length,
+                datas.rooms.length,
                     (index) => Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: RecommendItem(
-                    data: datas.noted[index],
+                    data: datas.rooms[index],
                     onTap: () {
                       Navigator.push(
                         context,

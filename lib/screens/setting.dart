@@ -105,9 +105,8 @@ class _SettingPageState extends State<SettingPage> {
                       Text(
                         '${auth.user.email}',
                         style: TextStyle(
-                          color: textColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
+                          color: labelColor,
+                          fontSize: 14,
                         ),
                       ),
                       SizedBox(
