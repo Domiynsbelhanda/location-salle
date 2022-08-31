@@ -287,87 +287,58 @@ class _DetailsPageState extends State<Details> {
                   '${widget.data.title}',
                   style: TextStyle(
                       fontSize: 22,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
                       color: textColor),
                 ),
               ),
             ),
 
-            SizedBox(
-              height: 5,
-            ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              padding: const EdgeInsets.all(16.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.data.town,
-                        style: TextStyle(fontSize: 12, color: labelColor),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.star,
-                            size: 14,
-                            color: yellow,
-                          ),
-                          SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            '${widget.data.note}',
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-
-                          SizedBox(width: 8.0,),
-                          Text(
-                            '${widget.data.prices} \$',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        'Phone : (+243) ${widget.data.phones}',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
+                  Icon(
+                    Icons.star,
+                    size: 20,
+                    color: yellow,
                   ),
+                  SizedBox(
+                    width: 3,
+                  ),
+                  Text(
+                    '${widget.data.note}',
+                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                  ),
+                  SizedBox(width: 16.0,),
+                  Text(
+                    'Max : ${widget.data.places} place(s)',
+                    style: TextStyle(fontSize: 15, color: labelColor),
+                  ),
+                ],
+              ),
+            ),
 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '${widget.data.places} place(s)',
-                        style: TextStyle(fontSize: 12, color: labelColor),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        '${widget.data.address}',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                      Text(
-                        '${widget.data.commune}',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  )
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    '${widget.data.prices} \$',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: primaryColor,
+                    ),
+                  ),
+                  SizedBox(width: 16.0,),
+                  Text(
+                    'Max : ${widget.data.town}',
+                    style: TextStyle(
+                        fontSize: 15, color: Colors.blueGrey
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -379,14 +350,44 @@ class _DetailsPageState extends State<Details> {
                 child: Text(
                   '${widget.data.description}',
                   style: TextStyle(
-                      fontSize: 14, color: Colors.black,
-
+                      fontSize: 16, color: Colors.black,
                   ),
                 ),
               ),
             ),
 
             SizedBox(height: 16.0,),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 0, 16),
+              child: Row(
+                children: [
+                  Icon(
+                    FontAwesomeIcons.locationDot,
+                    color: Colors.deepPurple,
+                    size: width(context) / 7,
+                  ),
+                  SizedBox(width: 16.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Adresse',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: textColor),
+                      ),
+                      Text(
+                        '${widget.data.address}',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: textColor),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
 
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 0, 16),

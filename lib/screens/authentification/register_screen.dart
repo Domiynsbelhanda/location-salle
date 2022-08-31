@@ -162,6 +162,9 @@ class _RegisterScreen extends State<RegisterScreen>{
                           hintText: "Enter your password",
                           fillColor: Colors.white70
                       ),
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
                     ),
                     SizedBox(height: 16.0),
 
