@@ -37,7 +37,11 @@ class BottomBarItem extends StatelessWidget {
             ),
             SizedBox(height: 4.0,),
             Text(
-              '${text}'
+              '${text}',
+              style: TextStyle(
+                fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                color: isActive ? Colors.black : color,
+              ),
             )
           ],
         ),

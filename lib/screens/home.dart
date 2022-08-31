@@ -13,6 +13,7 @@ import '../widgets/city_item.dart';
 import '../widgets/feature_item.dart';
 import '../widgets/recommend_item.dart';
 import '../widgets/user_box.dart';
+import 'FilterPage.dart';
 import 'authentification/login_screen.dart';
 import 'details.dart';
 
@@ -188,10 +189,9 @@ class _HomePageState extends State<HomePage> {
                             return GestureDetector(
                               onTap: ()=>Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => RootApp(
-                                  error: false,
-                                  tab: 1,
-                                  rooms: datas.rooms,
+                                MaterialPageRoute(builder: (context) => FilterPage(
+                                  allTextList: datas.rooms,
+                                  selectedUserList: [],
                                 )),
                               ),
                               child: Container(
