@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
             pinned: true,
             snap: true,
             floating: true,
+            automaticallyImplyLeading: false,
             title: getAppBar(),
           ),
           SliverToBoxAdapter(
@@ -109,22 +110,25 @@ class _HomePageState extends State<HomePage> {
 
             Consumer<Auth>(
               builder: (context, auth, child){
-                return UserBox(
-                  //auth.user.email
-                  notifiedNumber: auth.authenticated ? 1 : 0,
-                  onTap: () {
-                    if(auth.authenticated){
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) =>
-                              RootApp(tab: 3, error: false,))
-                      );
-                    } else {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => LoginScreen())
-                      );
-                    }
-                  },
-                );
+                return Consumer<Datas>(
+                builder: (context, datas, child){
+                  return UserBox(
+                    //auth.user.email
+                    notifiedNumber: auth.authenticated ? 1 : 0,
+                    onTap: () {
+                      if(auth.authenticated){
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) =>
+                                RootApp(tab: 3, error: false, user: auth.user, rooms: datas.rooms,))
+                        );
+                      } else {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => LoginScreen())
+                        );
+                      }
+                    },
+                  );
+                });
               },
             )
           ],
@@ -179,56 +183,50 @@ class _HomePageState extends State<HomePage> {
 
                         SizedBox(height: width(context) / 20),
 
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white.withOpacity(0.4),
-                            border: Border.all(
-                              color: Colors.white,
-                              style: BorderStyle.solid,
-                              width: 1.5,
-                            ),
-                          ),
-                          child: Consumer<Datas>(
-                            builder: (context, datas, child){
-                              return TextField(
-                                controller: search,
-                                style: TextStyle(
-                                    color: tertColor,
-                                    fontSize: width(context) / 23
+                        Consumer<Datas>(
+                          builder: (context, datas, child){
+                            return GestureDetector(
+                              onTap: ()=>Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => RootApp(
+                                  error: false,
+                                  tab: 1,
+                                  rooms: datas.rooms,
+                                )),
+                              ),
+                              child: Container(
+                                height: width(context) / 8,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.white.withOpacity(0.4),
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    style: BorderStyle.solid,
+                                    width: 1.5,
+                                  ),
                                 ),
-                                decoration: InputDecoration(
-                                    hintText: '  Rechercher',
-                                    hintStyle: TextStyle(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Rechercher',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18.0
+                                        ),
+                                      ),
+                                      Icon(
+                                        FontAwesomeIcons.magnifyingGlass,
                                         color: tertColor,
-                                        fontSize: width(context) / 23
-                                    ),
-                                    suffixIcon: IconButton(
-                                        onPressed: (){
-                                          if(search.text.trim().isNotEmpty){
-                                            List<Rooms>? contain = datas.rooms
-                                                .where((element) => element.title.toLowerCase()
-                                                .contains(search.text.trim().toLowerCase())).toList();
-
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(builder: (context) => RootApp(
-                                                error: false,
-                                                tab: 1,
-                                                rooms: contain,
-                                              )),
-                                            );
-                                          }
-                                        },
-                                        icon: Icon(
-                                          FontAwesomeIcons.magnifyingGlass,
-                                          color: tertColor,
-                                        )
-                                    )
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              );
-                            },
-                          )
+                              ),
+                            );
+                          },
                         )
                       ],
                     ),
