@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:place_event/services/datas.dart';
 import 'package:place_event/utils/errorEnum.dart';
 import 'package:provider/provider.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'screens/root_app.dart';
 import 'services/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,14 +43,23 @@ class _MyApp extends State<MyApp>{
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
       )),
-      home: Consumer<Datas>(
-        builder: (context, datas, child){
-          try {
-            return RootApp(rooms: datas.rooms, tab: 0, error: false,);
-          } catch (e){
-            return RootApp(tab: 0, error: true, errorType: ErrorStatus.offline,);
-          }
-        },
+      home: SplashScreen(
+        seconds: 10,
+        navigateAfterSeconds: Consumer<Datas>(
+          builder: (context, datas, child){
+            try {
+              return RootApp(rooms: datas.rooms, tab: 0, error: false,);
+            } catch (e){
+              return RootApp(tab: 0, error: true, errorType: ErrorStatus.offline,);
+            }
+            },
+          ),
+        title: new Text('PLACE EVENT'),
+        image: new Image.asset('assets/images/icon.png'),
+        backgroundColor: Colors.white,
+        styleTextUnderTheLoader: new TextStyle(),
+        photoSize: 100.0,
+        loaderColor: Colors.red,
       )
     );
   }

@@ -197,6 +197,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.3"
+  dialogs:
+    dependency: "direct main"
+    description:
+      name: dialogs
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
   dio:
     dependency: "direct main"
     description:
@@ -595,6 +602,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
+  splashscreen:
+    dependency: "direct main"
+    description:
+      name: splashscreen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.5"
   sqflite:
     dependency: transitive
     description:
