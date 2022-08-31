@@ -390,188 +390,119 @@ class _DetailsPageState extends State<Details> {
             ),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 0, 16),
+              padding: const EdgeInsets.fromLTRB(16, 16.0, 0, 12),
               child: Container(
                 child: Text(
                   'Information sur la salle',
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       color: textColor),
                 ),
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: Table(
+            cardInfo('Adresse', '${widget.data.address}'),
 
-                border: TableBorder.all(
-                    color: Colors.black,
-                    style: BorderStyle.solid,
-                    width: 1
-                ),
-                children: [
-                  TableRow( children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Adresse'),
-                          )
-                        ]
-                    ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('${widget.data.address}'),
-                          )
-                        ]
-                    ),
-                  ]),
-                  TableRow( children: [
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Commune'),
-                          )
-                        ]
-                    ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('${widget.data.commune}'),
-                          )
-                        ]
-                    ),
-                  ]),
-                  TableRow( children: [
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Ville'),
-                          )
-                        ]
-                    ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('${widget.data.town}'),
-                          )
-                        ]
-                    ),
-                  ]),
-                  TableRow( children: [
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Capacité'),
-                          )
-                        ]
-                    ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('${widget.data.places}'),
-                          )
-                        ]
-                    ),
-                  ]),
-                ],
-              ),
-            ),
+            cardInfo('Commune', '${widget.data.commune}'),
+
+            cardInfo('Ville', '${widget.data.town}'),
+
+            cardInfo('Capacité', '${widget.data.places}'),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 0, 16),
+              padding: const EdgeInsets.fromLTRB(16, 16.0, 0, 12),
               child: Container(
                 child: Text(
                   'Contact de la salle',
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       color: textColor),
                 ),
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: Table(
+            cardInfoPhone('Téléphone', '${widget.data.phones}'),
 
-                border: TableBorder.all(
-                    color: Colors.black,
-                    style: BorderStyle.solid,
-                    width: 1
-                ),
-                children: [
-                  TableRow( children: [
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Téléphone'),
-                          )
-                        ]
-                    ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('${widget.data.phones}'),
-                          )
-                        ]
-                    ),
-                  ]),
-                  TableRow( children: [
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Email'),
-                          )
-                        ]
-                    ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children:[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('${widget.data.email}'),
-                          )
-                        ]
-                    ),
-                  ]),
-                ],
-              ),
+            cardInfo('Adresse Maile', '${widget.data.email}'),
+
+            SizedBox(height: 84.0),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget cardInfo(String name, String content){
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 4.0),
+      child: Container(
+        height: width(context) /10,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          border: Border.all(
+            color: Colors.grey,
+            style: BorderStyle.solid,
+            width: 0.75,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('$name'),
             ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('$content'),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget cardInfoPhone(String name, String content){
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 4.0),
+      child: Container(
+        height: width(context) /10,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          border: Border.all(
+            color: Colors.grey,
+            style: BorderStyle.solid,
+            width: 0.75,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('$name'),
+            ),
+
+            GestureDetector(
+              onTap: ()=>whatsappCall('$content'),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.whatsapp,
+                      color: primaryColor,
+                    ),
+                    SizedBox(width: 4.0,),
+                    Text('Contactez-nous'),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
