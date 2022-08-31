@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:place_event/screens/authentification/login_screen.dart';
 import 'package:place_event/services/datas.dart';
@@ -8,6 +9,7 @@ import '../services/auth.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
 import '../widgets/custom_image.dart';
+import 'package:intl/intl.dart';
 
 class Details extends StatefulWidget {
   Details({Key? key, required this.data}) : super(key: key);
@@ -19,12 +21,12 @@ class Details extends StatefulWidget {
 
 class _DetailsPageState extends State<Details> {
 
-  TextEditingController search = new TextEditingController();
-
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,78 @@ class _DetailsPageState extends State<Details> {
 
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            bottom: 8.0,
+            child: Container(
+              width: width(context) / 1.00,
+              padding: EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          bool auth = Provider.of<Auth>(context, listen: false).authenticated;
+                          if(auth){
+                            reservation_dialog(context);
+                          } else {
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => LoginScreen()));
+                          }
+                        },
+                        child: Container(
+                          height: width(context) / 9,
+                          width: width(context) / 1.28,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                            color: primaryColor
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Réserver",
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                color: Colors.white
+                              ),
+
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () async {
+                          await FlutterShare.share(
+                              title: 'Place Event',
+                              text: 'Salle : ${widget.data.title}',
+                              linkUrl: 'https://place-event.com/roomsParty/${widget.data.key}',
+                              chooserTitle: ''
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0)
+                          ),
+                          child: Icon(
+                            FontAwesomeIcons.share,
+                            color: primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]
+                )
+              ),
             ),
           ),
         ],
@@ -124,7 +198,7 @@ class _DetailsPageState extends State<Details> {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
                       hintText: "Enter your phone number",
-                      fillColor: Colors.white70
+                      fillColor: Colors.white70,
                   ),
                 ),
 
@@ -149,8 +223,29 @@ class _DetailsPageState extends State<Details> {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
                       hintText: "Enter your date",
-                      fillColor: Colors.white70
+                      fillColor: Colors.white70,
+                      icon: Icon(Icons.calendar_today), //icon of text field
+                      labelText: "Enter Date" //label text of field
                   ),
+                  readOnly: true,
+                  onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                      context: context, initialDate: DateTime.now(),
+                      firstDate: DateTime(2020), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2100)
+                  );
+              
+                  if(pickedDate != null ){
+                    print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+              
+                    setState(() {
+                      _dateController.text = formattedDate; //set output date to TextField value. 
+                    });
+                  }else{
+                    showAlertDialog(context, 'Date de reservation', 'Erreur, recommencer.');
+                  }
+                  }
                 ),
               ],
             ),
@@ -158,8 +253,8 @@ class _DetailsPageState extends State<Details> {
         ),
       ),
       actions: [
+        okButton,
         plusButton,
-        okButton
       ],
     );
 
@@ -474,36 +569,6 @@ class _DetailsPageState extends State<Details> {
                     ),
                   ]),
                 ],
-              ),
-            ),
-
-            Center(
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed))
-                          return Theme.of(context).colorScheme.primary.withOpacity(0.5);
-                        return primaryColor;
-                      },
-                    )
-                ),
-                onPressed: () {
-                  bool auth = Provider.of<Auth>(context, listen: false).authenticated;
-                  if(auth){
-                    reservation_dialog(context);
-                  } else {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  }
-                },
-                child: Text(
-                  "RESERVER",
-                  style: TextStyle(
-                      fontSize: 20.0
-                  ),
-
-                ),
               ),
             ),
           ],
