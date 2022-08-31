@@ -33,7 +33,9 @@ class RecommendItem extends StatelessWidget {
               CustomImage(
                 'https://place-event.com/public/storage/${data.images}',
                 radius: 15,
-                height: 80,
+                fit: BoxFit.cover,
+                height: 120,
+                width: 120,
               ),
               SizedBox(
                 width: 10,
@@ -59,7 +61,7 @@ class RecommendItem extends StatelessWidget {
                       style: TextStyle(fontSize: 12, color: labelColor),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 5,
                     ),
                     Row(
                       children: [
@@ -68,12 +70,21 @@ class RecommendItem extends StatelessWidget {
                           size: 14,
                           color: yellow,
                         ),
-                        SizedBox(
-                          width: 3,
+                        Text(
+                          '${data.note}',
+                          style: TextStyle(fontSize: 12, color: labelColor),
                         ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      children: [
+
                         Expanded(
                           child: Text(
-                            '${data.note} - ${data.places} place(s)',
+                            '${data.places} place(s)',
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           ),
                         ),
