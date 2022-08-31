@@ -1,16 +1,11 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:place_event/services/datas.dart';
-import 'package:place_event/utils/constant.dart';
 import 'package:place_event/utils/errorEnum.dart';
 import 'package:provider/provider.dart';
 import 'screens/root_app.dart';
 import 'services/auth.dart';
-import 'theme/color.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   // var out = '\\x01\\x01';
@@ -42,9 +37,11 @@ class _MyApp extends State<MyApp>{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Place Event',
-      theme: ThemeData(
-        primaryColor: primary,
-      ),
+      theme:ThemeData(
+
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme,
+      )),
       home: Consumer<Datas>(
         builder: (context, datas, child){
           try {

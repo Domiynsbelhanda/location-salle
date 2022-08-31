@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:place_event/models/categories.dart';
 import '../models/rooms.dart';
 import '../models/user.dart';
+import '../utils/constant.dart';
 import 'dio.dart';
 
 class Datas extends ChangeNotifier{
@@ -62,6 +63,23 @@ class Datas extends ChangeNotifier{
       notifyListeners();
     } catch (e){
       print(e);
+    }
+  }
+
+  void reservation ({required Map creds, required BuildContext context}) async {
+
+    try {
+      Dio.Response response = await dio()!.post('/rooms/reservation', data: creds);
+      if(response.statusCode == 200){
+        var res = jsonDecode(response.data);
+        if(res['code'] == 1){
+          showAlertDialog(context, 'Reservation', '${res['data'].toString()}');
+        } else {
+          showAlertDialog(context, 'Reservation', '${res['data'].toString()}');
+        }
+      }
+    } catch (e){
+      showAlertDialog(context, 'Reservation', '${e.toString()}');
     }
   }
 }

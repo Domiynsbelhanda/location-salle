@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const int ANIMATED_BODY_MS = 500;
 
@@ -108,4 +108,27 @@ void spinner(BuildContext context, String text){
       );
     },
   );
+}
+
+Future<void> urlLaunch(String urls) async{
+  final Uri _url = Uri.parse(urls);
+  if (!await launchUrl(_url)) {
+    throw 'Could not launch $_url';
+  }
+}
+
+Future<void> whatsappCall(String phone) async{
+  String message = "Bonjour Place Event";
+  late String url;
+    if (Platform.isAndroid) {
+      // add the [https]
+      url = "https://wa.me/$phone/?text=${Uri.parse(message)}"; // new line
+    } else {
+      // add the [https]
+      url = "https://api.whatsapp.com/send?phone=$phone=${Uri.parse(message)}"; // new line
+    }
+  final Uri _url = Uri.parse(url);
+  if (!await launchUrl(_url)) {
+    throw 'Could not launch $_url';
+  }
 }

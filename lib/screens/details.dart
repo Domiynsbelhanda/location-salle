@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:place_event/screens/authentification/login_screen.dart';
+import 'package:place_event/services/datas.dart';
+import 'package:provider/provider.dart';
 import '../models/rooms.dart';
+import '../services/auth.dart';
 import '../theme/color.dart';
 import '../utils/constant.dart';
 import '../widgets/custom_image.dart';
@@ -16,6 +20,11 @@ class Details extends StatefulWidget {
 class _DetailsPageState extends State<Details> {
 
   TextEditingController search = new TextEditingController();
+
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +58,117 @@ class _DetailsPageState extends State<Details> {
           ),
         ],
       ),
+    );
+  }
+
+  reservation_dialog(BuildContext context) {
+
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("ANNULER"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    Widget plusButton = TextButton(
+      child: Text("CONFIRMER"),
+      onPressed: () {
+        Map data = {
+          'id':5,
+          'phones': _phoneController.text,
+          'date' : _dateController.text,
+          'keys' : widget.data.key
+        };
+        if(_formKey.currentState!.validate()){
+          bool auth = Provider.of<Auth>(context, listen: false).authenticated;
+          if(auth){
+            Navigator.pop(context);
+            Provider.of<Datas>(context, listen: false).reservation(creds: data, context: context);
+          } else {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => LoginScreen()));
+          }
+        }
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text('Reservation Salle'),
+      content: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Téléphone',
+                  style: TextStyle(
+                      fontSize: 18.0
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                TextFormField(
+                  controller: _phoneController,
+                  keyboardType : TextInputType.phone,
+                  validator: (value) => value!.isEmpty ? 'Veuillez entrer un numéro valide' : null,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      filled: true,
+                      hintStyle: TextStyle(color: Colors.grey[800]),
+                      hintText: "Enter your phone number",
+                      fillColor: Colors.white70
+                  ),
+                ),
+
+                SizedBox(height: 16.0),
+
+                Text(
+                  'Date de reservation',
+                  style: TextStyle(
+                      fontSize: 18.0
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                TextFormField(
+                  controller: _dateController,
+                  keyboardType: TextInputType.datetime,
+                  validator: (value) => value!.isEmpty ? 'Veuillez entrer une date valide' : null,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      filled: true,
+                      hintStyle: TextStyle(color: Colors.grey[800]),
+                      hintText: "Enter your date",
+                      fillColor: Colors.white70
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      actions: [
+        plusButton,
+        okButton
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
@@ -368,7 +488,15 @@ class _DetailsPageState extends State<Details> {
                       },
                     )
                 ),
-                onPressed: () {  },
+                onPressed: () {
+                  bool auth = Provider.of<Auth>(context, listen: false).authenticated;
+                  if(auth){
+                    reservation_dialog(context);
+                  } else {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                  }
+                },
                 child: Text(
                   "RESERVER",
                   style: TextStyle(

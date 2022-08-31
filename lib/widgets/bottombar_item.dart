@@ -4,11 +4,13 @@ import '../theme/color.dart';
 
 class BottomBarItem extends StatelessWidget {
   const BottomBarItem(this.icon,
+      this.text,
       {this.onTap,
       this.color = Colors.grey,
       this.activeColor = primary,
       this.isActive = false});
   final String icon;
+  final String text;
   final Color color;
   final Color activeColor;
   final bool isActive;
@@ -23,23 +25,21 @@ class BottomBarItem extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
         padding: EdgeInsets.all(7),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
           color: bottomBarColor,
-          boxShadow: [
-            if (isActive)
-              BoxShadow(
-                color: shadowColor.withOpacity(0.1),
-                spreadRadius: 2,
-                blurRadius: 2,
-                offset: Offset(0, 0), // changes position of shadow
-              ),
-          ],
         ),
-        child: SvgPicture.asset(
-          icon,
-          color: isActive ? primary : color,
-          width: 20,
-          height: 20,
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              icon,
+              color: isActive ? Colors.black : color,
+              width: 20,
+              height: 20,
+            ),
+            SizedBox(height: 4.0,),
+            Text(
+              '${text}'
+            )
+          ],
         ),
       ),
     );

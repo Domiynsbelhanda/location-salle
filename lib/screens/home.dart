@@ -61,35 +61,74 @@ class _HomePageState extends State<HomePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
+        Image.asset(
+          'assets/images/logo1.png',
+          scale: 1.5,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Image.asset(
-              'assets/images/logo1.png',
-              scale: 1.5,
+            GestureDetector(
+              onTap: ()=>urlLaunch('https://twitter.com/domiyns'),
+              child: Icon(
+                FontAwesomeIcons.twitter,
+                color: Colors.black,
+                size: width(context) / 20,
+              ),
+            ),
+
+            SizedBox(
+              width: 8.0,
+            ),
+
+            GestureDetector(
+                onTap: ()=>urlLaunch('https://www.instagram.com/younessdominique/'),
+                child: Icon(
+                  FontAwesomeIcons.instagram,
+                  color: Colors.black,
+                  size: width(context) / 20,
+                )
+            ),
+
+            SizedBox(
+              width: 8.0,
+            ),
+
+            GestureDetector(
+                onTap: ()=>urlLaunch('https://www.linkedin.com/in/youness-dominique-tshunza-6005b7a1/'),
+                child: Icon(
+                  FontAwesomeIcons.linkedin,
+                  color: Colors.black,
+                  size: width(context) / 20,
+                )
+            ),
+
+            SizedBox(
+              width: 8.0,
+            ),
+
+            Consumer<Auth>(
+              builder: (context, auth, child){
+                return UserBox(
+                  //auth.user.email
+                  notifiedNumber: auth.authenticated ? 1 : 0,
+                  onTap: () {
+                    if(auth.authenticated){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) =>
+                              RootApp(tab: 3, error: false,))
+                      );
+                    } else {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => LoginScreen())
+                      );
+                    }
+                  },
+                );
+              },
             )
           ],
         ),
-        Spacer(),
-        Consumer<Auth>(
-          builder: (context, auth, child){
-            return UserBox(
-              //auth.user.email
-              notifiedNumber: auth.authenticated ? 1 : 0,
-              onTap: () {
-                if(auth.authenticated){
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) =>
-                          RootApp(tab: 3, error: false,))
-                  );
-                } else {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LoginScreen())
-                  );
-                }
-              },
-            );
-          },
-        )
       ],
     );
   }
@@ -243,7 +282,7 @@ class _HomePageState extends State<HomePage> {
         try{
           return CarouselSlider(
             options: CarouselOptions(
-              height: 300,
+              height: 312,
               enlargeCenterPage: true,
               disableCenter: true,
               viewportFraction: .75,

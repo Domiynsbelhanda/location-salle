@@ -56,18 +56,22 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
           {
             "icon": "assets/icons/home.svg",
             "page": HomePage(),
+            "text": "Accueil"
           },
           {
             "icon": "assets/icons/explore.svg",
-            "page": ListItem(rooms: widget.rooms!)
+            "page": ListItem(rooms: widget.rooms!),
+            "text": "Explore"
           },
           {
             "icon": "assets/icons/pin-area.svg",
             "page": MapHotels(rooms: widget.rooms!),
+            "text": "Maps"
           },
           {
             "icon": "assets/icons/setting.svg",
             "page": SettingPage(),
+            "text": "Settings"
           },
         ];
       } catch(e){
@@ -75,18 +79,22 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
           {
             "icon": "assets/icons/home.svg",
             "page": HomePage(),
+            "text": "Accueil"
           },
           {
             "icon": "assets/icons/explore.svg",
-            "page": ListItem(rooms: [])
+            "page": ListItem(rooms: []),
+            "text": "Explore"
           },
           {
             "icon": "assets/icons/pin-area.svg",
             "page": MapHotels(rooms: widget.rooms!),
+            "text": "Maps"
           },
           {
             "icon": "assets/icons/setting.svg",
             "page": SettingPage(),
+            "text": "Settings"
           },
         ];
       }
@@ -192,23 +200,16 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
 
   Widget getBottomBar() {
     return Container(
-      height: width(context) / 7,
+      height: width(context) / 5.5,
       width: double.infinity,
       decoration: BoxDecoration(
           color: bottomBarColor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25), topRight: Radius.circular(25)),
-          boxShadow: [
-            BoxShadow(
-                color: shadowColor.withOpacity(0.1),
-                blurRadius: 1,
-                spreadRadius: 1,
-                offset: Offset(0, 1))
-          ]),
+          ),
       child: Padding(
         padding: const EdgeInsets.only(
           left: 25,
           right: 25,
+          top: 5
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -216,6 +217,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
             barItems.length,
             (index) => BottomBarItem(
               barItems[index]["icon"],
+              barItems[index]['text'],
               isActive: activeTabIndex == index,
               activeColor: primary,
               onTap: () {
