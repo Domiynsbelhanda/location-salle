@@ -168,94 +168,105 @@ class _DetailsPageState extends State<Details> {
     );
 
     // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text('Reservation Salle'),
-      content: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Téléphone',
-                  style: TextStyle(
-                      fontSize: 18.0
+    Dialog alert = Dialog(
+      shape: RoundedRectangleBorder(
+          borderRadius:
+          BorderRadius.circular(20.0)),
+      child: SingleChildScrollView(
+        child: Container(
+          width: width(context) / 1,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Téléphone',
+                    style: TextStyle(
+                        fontSize: 18.0
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.0),
-                TextFormField(
-                  controller: _phoneController,
-                  keyboardType : TextInputType.phone,
-                  validator: (value) => value!.isEmpty ? 'Veuillez entrer un numéro valide' : null,
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      filled: true,
-                      hintStyle: TextStyle(color: Colors.grey[800]),
-                      hintText: "Enter your phone number",
-                      fillColor: Colors.white70,
+                  SizedBox(height: 8.0),
+                  TextFormField(
+                    controller: _phoneController,
+                    keyboardType : TextInputType.phone,
+                    validator: (value) => value!.isEmpty ? 'Veuillez entrer un numéro valide' : null,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        filled: true,
+                        hintStyle: TextStyle(color: Colors.grey[800]),
+                        hintText: "Enter your phone number",
+                        fillColor: Colors.white70,
+                    ),
                   ),
-                ),
 
-                SizedBox(height: 16.0),
+                  SizedBox(height: 16.0),
 
-                Text(
-                  'Date de reservation',
-                  style: TextStyle(
-                      fontSize: 18.0
+                  Text(
+                    'Date de reservation',
+                    style: TextStyle(
+                        fontSize: 18.0
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.0),
-                TextFormField(
-                  controller: _dateController,
-                  keyboardType: TextInputType.datetime,
-                  validator: (value) => value!.isEmpty ? 'Veuillez entrer une date valide' : null,
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      filled: true,
-                      hintStyle: TextStyle(color: Colors.grey[800]),
-                      hintText: "Enter your date",
-                      fillColor: Colors.white70,
-                      icon: Icon(Icons.calendar_today), //icon of text field
-                      labelText: "Enter Date" //label text of field
+                  SizedBox(height: 8.0),
+                  TextFormField(
+                    controller: _dateController,
+                    keyboardType: TextInputType.datetime,
+                    validator: (value) => value!.isEmpty ? 'Veuillez entrer une date valide' : null,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        filled: true,
+                        hintStyle: TextStyle(color: Colors.grey[800]),
+                        hintText: "Enter your date",
+                        fillColor: Colors.white70,
+                        icon: Icon(Icons.calendar_today), //icon of text field
+                        labelText: "Select Date" //label text of field
+                    ),
+                    readOnly: true,
+                    onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                        context: context, initialDate: DateTime.now(),
+                        firstDate: DateTime(2020), //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2100)
+                    );
+
+                    if(pickedDate != null ){
+                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+
+                      setState(() {
+                        _dateController.text = formattedDate; //set output date to TextField value.
+                      });
+                    }else{
+                      showAlertDialog(context, 'Date de reservation', 'Erreur, recommencer.');
+                    }
+                    }
                   ),
-                  readOnly: true,
-                  onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                      context: context, initialDate: DateTime.now(),
-                      firstDate: DateTime(2020), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2100)
-                  );
-              
-                  if(pickedDate != null ){
-                    print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-              
-                    setState(() {
-                      _dateController.text = formattedDate; //set output date to TextField value. 
-                    });
-                  }else{
-                    showAlertDialog(context, 'Date de reservation', 'Erreur, recommencer.');
-                  }
-                  }
-                ),
-              ],
+
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        okButton,
+                        plusButton,
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
-      actions: [
-        okButton,
-        plusButton,
-      ],
     );
 
     // show the dialog
